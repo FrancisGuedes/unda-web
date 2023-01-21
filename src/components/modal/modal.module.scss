@@ -1,0 +1,92 @@
+@use '../../styles/core/colors';
+@use '../../styles/core/fonts';
+@use '../../styles/core/mediaQueries';
+@use '../../styles/core/animations';
+
+.modal-background {
+  //backdrop-filter: blur(1px);
+  background-color: colors.$modalFullBackground;
+  position: inherit;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transform: scaleY(.01) scaleX(0);
+  @include animations.unfoldIn;
+  @include animations.animate(unfoldIn, 1s, 0s, cubic-bezier(0.165, 0.840, 0.440, 1.000),  forwards);
+  @include mediaQueries.desktop {
+    display: none;
+  }
+}
+
+.modal-bg-close-effect {
+  transform: scale(1);
+  @include animations.unfoldOut;
+  @include animations.animate(unfoldOut, 1s, .3s, cubic-bezier(0.165, 0.840, 0.440, 1.000),  forwards);
+}
+
+.modal {
+  top: 10vw;
+  left: 7vw;
+  right: 7vw;
+  bottom: 10vw;
+  position: fixed;
+  background-color: colors.$modalContentBackground;
+  transform: scale(0);
+  @include animations.zoomIn;
+  @include animations.animate(zoomIn, .5s, .8s, cubic-bezier(0.165, 0.840, 0.440, 1.000), forwards);
+  @include mediaQueries.desktop {
+    display: none;
+  }
+  
+  .modal-close {
+    position: inherit;
+    top: 1vw;
+    right: 1vw;
+    transition: 0.55s cubic-bezier(0.52, 0.01, 0.16, 1) 0.4s;
+    .icon-close-modal {
+      width: 35px;
+      height: 35px;
+    }
+  }
+  .contact-social {
+    width: 100%;
+    bottom: 7vh;
+    position: absolute;
+    text-align: center;
+    transition: 0.55s cubic-bezier(0.52, 0.01, 0.16, 1) 0.4s;
+    h3 {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+    }
+    .social-list {
+      display: flex;
+      flex-wrap: nowrap;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      height: 4vw;
+      .modal-contact-link {
+        width: auto;
+        display: inherit;
+        border-top: 0;
+        .modal-link {
+          margin: 10px 10px;
+          &.instagram {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-close-effect {
+  transform: scale(0);
+  @include animations.zoomOut;
+  @include animations.animate(zoomOut, .5s, 0s, cubic-bezier(0.165, 0.840, 0.440, 1.000), forwards);
+}

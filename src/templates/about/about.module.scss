@@ -1,0 +1,58 @@
+@use './ameneties/ameneties.module.scss';
+@use '../../styles/core/mediaQueries';
+
+.about-wrapper {
+  min-height: 700px;
+  .about-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin-top: 68px;
+    height: 605px;
+    @include mediaQueries.desktop {
+      flex-direction: column;
+      margin-top: 0;
+      height: auto;
+    };
+    @include mediaQueries.maxWidthMobile {
+      margin-top: 30px;
+    };
+  }
+  .about-image_wrapper {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 422px;
+    max-height: 633px;
+    @include mediaQueries.desktop {
+      width: 55%;
+      min-width: 223px;
+      max-height: 100%;
+    };
+    @include mediaQueries.maxWidthMobile {
+      min-width: 100%;
+    };
+    img {
+      width: auto;
+      height: 100%;
+      border-radius: 1px;
+      @include mediaQueries.desktop {
+        width: 100%;
+      };
+    }
+  }
+  .about-button-wrapper {
+    width: 100%;
+    text-align: center;
+    padding: 60px 0;
+    .about-button {
+      a {
+        padding-top: 3.5px;
+      }
+    }
+  }
+}

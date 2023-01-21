@@ -1,0 +1,122 @@
+@mixin animate($animationName, $duration, $delay, $method, $times) {
+  animation: $animationName $duration $delay $method $times;
+}
+
+@mixin opacityIn {
+  @keyframes opacityIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin opacityOut {
+  @keyframes opacityOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+@mixin fadeInUp {
+  @keyframes fadeInUp {
+    0% {
+      filter: alpha(opacity=0);
+      opacity: 0;
+      -webkit-transform: translateY(50%);
+      -moz-transform: translateY(50%);
+      -ms-transform: translateY(50%);
+      -o-transform: translateY(50%);
+      transform: translateY(80%);
+    }
+    100% {
+      filter: alpha(opacity=100);
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+}
+
+@mixin zoomIn {
+  @keyframes zoomIn {
+    0% {
+      transform:scale(0);
+    }
+    100% {
+      transform:scale(1);
+    }
+  }
+}
+
+@mixin zoomOut {
+  @keyframes zoomOut {
+    0% {
+      transform:scale(1);
+    }
+    100% {
+      transform:scale(0);
+    }
+  }
+}
+
+@mixin unfoldIn {
+  @keyframes unfoldIn {
+  0% {
+    transform:scaleY(.005) scaleX(0);
+  }
+  50% {
+    transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+    transform:scaleY(1) scaleX(1);
+  }
+}
+}
+
+@mixin unfoldOut {
+  @keyframes unfoldOut {
+    0% {
+      transform:scaleY(1) scaleX(1);
+    }
+    50% {
+      transform:scaleY(.005) scaleX(1);
+    }
+    100% {
+      transform:scaleY(.005) scaleX(0);
+    }
+  }
+}
+
+@mixin headingDown {
+  @keyframes headingDown {
+    0% {
+      opacity: 0;
+      top: -50px;
+    }
+    100% {
+      opacity: 1;
+      top: 0px;
+    }
+  }
+}
+
+@mixin headingUp {
+  @keyframes headingUp {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: -80px;
+    }
+  }
+}

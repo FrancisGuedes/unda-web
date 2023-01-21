@@ -1,0 +1,21 @@
+@use '../../styles/core/colors';
+@use '../../styles/core/fonts';
+
+.app-button {
+  width: 150px;
+  height: 30px;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 48px/118px;
+  padding-left: 15px;
+  padding-right: 15px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-color: transparent;
+  background-color: colors.$black;
+  color: colors.$white;
+  cursor: pointer;
+  &:focus {
+    outline-style: none;
+  }
+}

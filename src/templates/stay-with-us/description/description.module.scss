@@ -1,0 +1,39 @@
+@use '../../../styles/core/vars';
+@use '../../../styles/core/mediaQueries';
+
+.paragraph-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  justify-content: center;
+  width: 100%;
+  height: 28%;
+  min-height: calc(vars.$sectionMinHeight / 4);
+  margin-top: 30px;
+  @include mediaQueries.maxWidthMobile {
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 70px;
+  }
+  h1 {
+    font-family: 'Vidaloka', serif;
+  }
+  .paragraph-wrapper {
+    width: 90%;
+    .stay-with-us_paragraph {
+      margin: 10px;
+      @include mediaQueries.desktop {
+        font-size: 14px;
+      }
+    }
+  }
+  .paragraph-wrapper > * {
+    @include mediaQueries.maxWidthMobile {
+      margin: 22px 0;
+    }
+  }
+}

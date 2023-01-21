@@ -1,0 +1,100 @@
+@use "sass:map";
+
+// Breakpoints
+$size__default: 1220px;
+$size__site_content_width: 970px;
+$size__mobile: 667px;
+$size__tablet: 668px;
+$size__big_desktop: 1801px;
+
+// the map function for specific breakpoints
+@function translate-media-condition($condition) {
+  $conditionMap: (
+    "landscape": "(orientation:landscape)",
+    "portrait": "(orientation:portrait)",
+    "screen": "only screen",
+    "print": "only print",
+    "retina": "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5), (min-resolution: 120dpi)",
+    "<defaultSize": "(max-width: #{$size__default})",
+    ">smallDesktopSize": "(min-width: #{$size__site_content_width + 1})",
+    "<smallDesktopSize": "(max-width: #{$size__site_content_width})", 		
+    ">tabletSize": "(min-width: #{$size__tablet})",
+    "<tabletSize": "(max-width: #{$size__tablet})",
+    ">mobileSize": "(min-width: #{$size__mobile + 1})",
+    "<mobileSize": "(max-width: #{$size__mobile})",
+    ">bigDesktopSize": "(min-width: #{$size__big_desktop + 1})",
+    "<bigDesktopSize": "(max-width: #{$size__big_desktop})",
+  );
+  @return map-get( $conditionMap, $condition);
+}
+
+// The media mixin
+@mixin media($args...) {
+  $query: "";
+  @each $arg in $args {
+    $op: "";
+    @if ( $query != "" ) {
+      $op: " and ";
+    }
+    /* Combining breakpoints dependencies */
+    $query: $query + $op + translate-media-condition($arg);
+  }
+
+  /* Building final media query */
+  @media #{$query}  { @content; }
+}
+
+// Usefull custom media mixins
+@mixin maxWidthMobile { 
+  @include media("screen", "<mobileSize") { 
+    @content; 
+  } 
+}
+
+@mixin minWidthMobile { 
+  @include media("screen", ">mobileSize") { 
+    @content; 
+  } 
+}
+
+@mixin tablet { 
+  @include media("screen", ">tabletSize", "<smallDesktopSize") { 
+    @content; 
+  } 
+}
+
+@mixin maxWidthtablet { 
+  @include media("screen", "<tabletSize") { 
+    @content; 
+  } 
+}
+
+@mixin smallDesktops { 
+  @include media("screen", ">smallDesktopSize", "<defaultSize") { 
+    @content; 
+  } 
+}
+
+@mixin desktop { 
+  @include media("screen", "<smallDesktopSize") { 
+    @content; 
+  } 
+}
+
+@mixin minWidthdesktop { 
+  @include media("screen", ">smallDesktopSize") { 
+    @content; 
+  } 
+}
+
+@mixin minWidthBigDesktops { 
+  @include media("screen", ">bigDesktopSize") { 
+    @content; 
+  } 
+}
+
+@mixin maxWidthDesktop { 
+  @include media("screen", "<defaultSize") { 
+    @content; 
+  } 
+}

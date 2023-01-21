@@ -1,0 +1,109 @@
+@use '../../styles/core/colors';
+@use '../../styles/core/fonts';
+@use '../../styles/core/mediaQueries';
+@use '../../styles/core/animations';
+
+:export {
+  tabletSizeWindow: 970px;
+}
+
+.header-navbar-active {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6vw 0 6vw;
+  height: 80px;
+  width: 100%;
+  background-color: colors.$mainBackground;
+  z-index: 1;
+  .navbar-logo {
+    cursor: pointer;
+  }
+  @include animations.headingDown;
+  @include animations.animate(headingDown, 0.3s, 0s, cubic-bezier(0.52, 0.01, 0.16, 1), forwards);
+  @include mediaQueries.minWidthBigDesktops {
+    padding: 0 15% 0 15%;
+  };
+}
+
+.hidden {
+  position: fixed;
+  top: -80px;
+  @include animations.headingUp;
+  @include animations.animate(headingUp, 0.3s, 0s, cubic-bezier(0.52, 0.01, 0.16, 1), forwards);
+}
+
+.shadow {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 1px 0px;//-1px 0px 1px 0px;
+}
+
+.underline {
+  color: colors.$navlinkNotActive;
+}
+
+.active, .not-active:hover {
+  background: linear-gradient(0deg, colors.$black, colors.$black) no-repeat right bottom / 0 100%;
+  color: colors.$black;
+  transition: background-size 500ms;
+  background-size: 100% 7%;
+  background-position-x: left;
+  padding-bottom: 3px;
+}
+
+@include mediaQueries.tablet {
+    .not-active:hover {
+      background: none;
+      color: colors.$navlinkNotActive;
+    }
+}
+
+.contact-modal-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  box-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  transition: 0.55s cubic-bezier(0.52, 0.01, 0.16, 1) 0.4s;
+  margin-top: -3.5%;
+  h1 {
+    margin-top: 0;
+  }
+  h1, .huge-text {
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+  }
+  .huge-text {
+    font-size: 4.5vw;
+    display: table;
+    margin: 0 auto;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0) scale(1, 1);
+    span {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0) scale(1, 1);
+    }
+  }
+}

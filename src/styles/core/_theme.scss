@@ -1,0 +1,83 @@
+@use 'colors';
+@use 'mediaQueries';
+@use 'fonts';
+@use 'vars';
+@use 'animations';
+
+@font-face { 
+  font-family: 'Aileron';
+  font-style: normal;
+  src: url('./font/Aileron-Thin.otf') format('otf');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth!important;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Aileron', sans-serif;
+  //font-family: 'Montserrat', sans-serif;
+  //font-family: 'Vidaloka', serif;
+  font-weight: fonts.$font-medium;
+}
+
+body {
+  background-color: colors.$mainBackground;
+}
+
+main {
+  padding: 80px 5vw 5vh 4.5vw;
+  min-height: 100vh;
+  @include mediaQueries.minWidthBigDesktops {
+    padding: 80px 15% 5vh 15%;
+  }
+  @include mediaQueries.tablet {
+    padding: 80px 5vw 5vh 6.5vw;
+  };
+  @include mediaQueries.maxWidthMobile {
+    padding: 80px 5vw 5vh 4.5vw;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 5px 0;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+h1 {
+  font-size: 36px;
+  letter-spacing: 2px;
+  font-weight: fonts.$font-light;
+  @include mediaQueries.desktop {
+    font-size: 26px;
+  };
+}
+
+h3, h5 {
+  margin: 6px 0;
+  font-weight: fonts.$font-medium;
+} 
+
+section {
+  padding: 15px 0;
+}
