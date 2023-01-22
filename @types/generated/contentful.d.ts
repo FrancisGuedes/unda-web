@@ -3,35 +3,29 @@
 import { Asset, Entry } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 
-export interface IAboutFields {
+export interface IAboutSectionFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
   /** title */
   title?: string | undefined;
 
-  /** text_content */
-  textContent?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+  /** title-image */
+  titleImage?: Entry<{ [fieldId: string]: unknown }> | undefined;
 
-  /** utilities_title */
-  utilitiesTitle?: string | undefined;
+  /** text */
+  text?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 
-  /** utilities */
-  utilities: string[];
-
-  /** image_content */
-  imageContent?: Entry<{ [fieldId: string]: unknown }> | undefined;
-
-  /** about_button */
-  aboutButton?: Entry<{ [fieldId: string]: unknown }> | undefined;
+  /** about-image */
+  aboutImage?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 }
 
-/** About section */
+/** View for about page */
 
-export interface IAbout extends Entry<IAboutFields> {
+export interface IAboutSection extends Entry<IAboutSectionFields> {
   sys: {
     id: string;
     type: string;
@@ -40,7 +34,7 @@ export interface IAbout extends Entry<IAboutFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'about';
+        id: 'aboutSection';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -50,19 +44,26 @@ export interface IAbout extends Entry<IAboutFields> {
 
 export interface IButtonFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
+
+  /** title */
+  title?: string | undefined;
 
   /** href */
-  href?: Entry<{ [fieldId: string]: unknown }> | undefined;
+  href?: string | undefined;
 
   /** aria-label */
-  ariaLabel: string;
-}
+  ariaLabel?: string | undefined;
 
-/** Button component */
+  /** target */
+  target?: string | undefined;
+
+  /** type */
+  type?: string | undefined;
+}
 
 export interface IButton extends Entry<IButtonFields> {
   sys: {
@@ -83,31 +84,22 @@ export interface IButton extends Entry<IButtonFields> {
 
 export interface ICardFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** reviewer */
-  reviewer: string;
+  /** card-image */
+  cardImage?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 
-  /** stars */
-  stars: number;
+  /** card-description */
+  cardDescription?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 
-  /** review_month */
-  reviewMonth: string;
-
-  /** review_year */
-  reviewYear: number;
-
-  /** source */
-  source: string;
-
-  /** the_review */
-  theReview: Document;
+  /** card-footer */
+  cardFooter?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 }
 
-/** Card component for reviews */
+/** Component for a carousel or not, with image and description */
 
 export interface ICard extends Entry<ICardFields> {
   sys: {
@@ -126,20 +118,26 @@ export interface ICard extends Entry<ICardFields> {
   };
 }
 
-export interface ICarouselFields {
+export interface IContactSectionFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** carousel_media */
-  carouselMedia?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+  /** statement */
+  statement?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** button */
+  button?: Entry<{ [fieldId: string]: unknown }> | undefined;
+
+  /** button-image */
+  buttonImage?: Entry<{ [fieldId: string]: unknown }> | undefined;
 }
 
-/** Carousel component for several images */
+/** View for contact page */
 
-export interface ICarousel extends Entry<ICarouselFields> {
+export interface IContactSection extends Entry<IContactSectionFields> {
   sys: {
     id: string;
     type: string;
@@ -148,40 +146,7 @@ export interface ICarousel extends Entry<ICarouselFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'carousel';
-        linkType: 'ContentType';
-        type: 'Link';
-      };
-    };
-  };
-}
-
-export interface IContactFields {
-  /** name */
-  name: string;
-
-  /** id */
-  id: string;
-
-  /** title */
-  title?: string | undefined;
-
-  /** social_media_links */
-  socialMediaLinks: Entry<{ [fieldId: string]: unknown }>[];
-}
-
-/** Contact section page */
-
-export interface IContact extends Entry<IContactFields> {
-  sys: {
-    id: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-    locale: string;
-    contentType: {
-      sys: {
-        id: 'contact';
+        id: 'contactSection';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -191,25 +156,22 @@ export interface IContact extends Entry<IContactFields> {
 
 export interface IFooterFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** description */
-  description: string;
+  /** all-rights-text */
+  allRightsText?: string | undefined;
 
-  /** crafted_title */
-  craftedTitle: string;
+  /** author-text */
+  authorText?: Entry<{ [fieldId: string]: unknown }> | undefined;
 
-  /** crafted_person_name */
-  craftedPersonName: string;
-
-  /** crafted_person_container_link */
-  craftedPersonContainerLink: Entry<{ [fieldId: string]: unknown }>;
+  /** author-link */
+  authorLink?: Entry<{ [fieldId: string]: unknown }> | undefined;
 }
 
-/** Footer component section */
+/** View for footer section */
 
 export interface IFooter extends Entry<IFooterFields> {
   sys: {
@@ -228,23 +190,29 @@ export interface IFooter extends Entry<IFooterFields> {
   };
 }
 
-export interface IHomeFields {
-  /** home */
-  home: string;
+export interface IHeroSectionFields {
+  /** name */
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** carousel_data */
-  carouselData?: Entry<{ [fieldId: string]: unknown }> | undefined;
+  /** title */
+  title?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 
-  /** button_data */
-  buttonData?: Entry<{ [fieldId: string]: unknown }> | undefined;
+  /** hero-image */
+  heroImage?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** button */
+  button?: Entry<{ [fieldId: string]: unknown }> | undefined;
+
+  /** button-image */
+  buttonImage?: Entry<{ [fieldId: string]: unknown }> | undefined;
 }
 
-/** Home component section */
+/** View for home page */
 
-export interface IHome extends Entry<IHomeFields> {
+export interface IHeroSection extends Entry<IHeroSectionFields> {
   sys: {
     id: string;
     type: string;
@@ -253,7 +221,7 @@ export interface IHome extends Entry<IHomeFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'home';
+        id: 'heroSection';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -261,23 +229,20 @@ export interface IHome extends Entry<IHomeFields> {
   };
 }
 
-export interface IImageSectionFields {
+export interface ILayoutFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** title */
-  title?: string | undefined;
-
-  /** image_media */
-  imageMedia?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+  /** image */
+  image?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 }
 
-/** Component for an image section with a title */
+/** View background */
 
-export interface IImageSection extends Entry<IImageSectionFields> {
+export interface ILayout extends Entry<ILayoutFields> {
   sys: {
     id: string;
     type: string;
@@ -286,7 +251,7 @@ export interface IImageSection extends Entry<IImageSectionFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'imageSection';
+        id: 'layout';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -296,13 +261,13 @@ export interface IImageSection extends Entry<IImageSectionFields> {
 
 export interface ILinkFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
   /** rel */
-  rel: string;
+  rel?: string | undefined;
 
   /** href */
   href?: string | undefined;
@@ -310,8 +275,6 @@ export interface ILinkFields {
   /** title */
   title?: string | undefined;
 }
-
-/** Link component for any reutilization needed */
 
 export interface ILink extends Entry<ILinkFields> {
   sys: {
@@ -332,10 +295,10 @@ export interface ILink extends Entry<ILinkFields> {
 
 export interface IMultiImageFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
   /** href */
   href?: string | undefined;
@@ -343,11 +306,12 @@ export interface IMultiImageFields {
   /** alt */
   alt?: string | undefined;
 
+  /** title */
+  title?: string | undefined;
+
   /** media */
   media?: Asset[] | undefined;
 }
-
-/** Multi image component for carousels or grids */
 
 export interface IMultiImage extends Entry<IMultiImageFields> {
   sys: {
@@ -366,21 +330,55 @@ export interface IMultiImage extends Entry<IMultiImageFields> {
   };
 }
 
-export interface INavbarFields {
+export interface IMultiLinkFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** navlinks */
-  navlinks: Entry<{ [fieldId: string]: unknown }>[];
+  /** title */
+  title?: string | undefined;
 
-  /** logo_image */
-  logoImage?: Entry<{ [fieldId: string]: unknown }> | undefined;
+  /** rel */
+  rel?: string | undefined;
+
+  /** links */
+  links?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 }
 
-/** Navbar component */
+export interface IMultiLink extends Entry<IMultiLinkFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'multiLink';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface INavbarFields {
+  /** name */
+  name?: string | undefined;
+
+  /** id */
+  id?: string | undefined;
+
+  /** navlinks */
+  navlinks?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** logo */
+  logo?: Entry<{ [fieldId: string]: unknown }> | undefined;
+}
+
+/** Component */
 
 export interface INavbar extends Entry<INavbarFields> {
   sys: {
@@ -399,18 +397,44 @@ export interface INavbar extends Entry<INavbarFields> {
   };
 }
 
-export interface IParagraphFields {
+export interface IOneLineTextFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** paragraph-content */
-  paragraphContent: Document;
+  /** text */
+  text?: string | undefined;
 }
 
-/** Paragraph component */
+export interface IOneLineText extends Entry<IOneLineTextFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'oneLineText';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface IParagraphFields {
+  /** name */
+  name?: string | undefined;
+
+  /** id */
+  id?: string | undefined;
+
+  /** paragraph-content */
+  paragraphContent?: Document | undefined;
+}
 
 export interface IParagraph extends Entry<IParagraphFields> {
   sys: {
@@ -429,23 +453,29 @@ export interface IParagraph extends Entry<IParagraphFields> {
   };
 }
 
-export interface IReviewFields {
+export interface IPortfolioSectionFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
   /** title */
   title?: string | undefined;
 
-  /** card_reviews */
-  cardReviews: Entry<{ [fieldId: string]: unknown }>[];
+  /** title-image */
+  titleImage?: Entry<{ [fieldId: string]: unknown }> | undefined;
+
+  /** card-main */
+  cardMain?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** card-hover */
+  cardHover?: Entry<{ [fieldId: string]: unknown }> | undefined;
 }
 
-/** Review Section */
+/** View for Portfolio page */
 
-export interface IReview extends Entry<IReviewFields> {
+export interface IPortfolioSection extends Entry<IPortfolioSectionFields> {
   sys: {
     id: string;
     type: string;
@@ -454,7 +484,7 @@ export interface IReview extends Entry<IReviewFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'review';
+        id: 'portfolioSection';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -464,22 +494,23 @@ export interface IReview extends Entry<IReviewFields> {
 
 export interface ISingleImageFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
+
+  /** title */
+  title?: string | undefined;
 
   /** href */
   href?: string | undefined;
 
   /** media */
-  media: Asset;
+  media?: Asset | undefined;
 
   /** alt */
   alt?: string | undefined;
 }
-
-/** Single image component */
 
 export interface ISingleImage extends Entry<ISingleImageFields> {
   sys: {
@@ -498,23 +529,20 @@ export interface ISingleImage extends Entry<ISingleImageFields> {
   };
 }
 
-export interface IStayWithUsFields {
+export interface ISocialMediaFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
-  /** stay_with_us-text_content */
-  stayWithUsTextContent?: Entry<{ [fieldId: string]: unknown }> | undefined;
-
-  /** stay_with_us-image_content */
-  stayWithUsImageContent?: Entry<{ [fieldId: string]: unknown }> | undefined;
+  /** social-media-content */
+  socialMediaContent?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 }
 
-/** Stay with us component section */
+/** Component */
 
-export interface IStayWithUs extends Entry<IStayWithUsFields> {
+export interface ISocialMedia extends Entry<ISocialMediaFields> {
   sys: {
     id: string;
     type: string;
@@ -523,7 +551,7 @@ export interface IStayWithUs extends Entry<IStayWithUsFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'stayWithUs';
+        id: 'socialMedia';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -531,26 +559,32 @@ export interface IStayWithUs extends Entry<IStayWithUsFields> {
   };
 }
 
-export interface ITextDescriptionFields {
+export interface ISolutionsFields {
   /** name */
-  name: string;
+  name?: string | undefined;
 
   /** id */
-  id: string;
+  id?: string | undefined;
 
   /** title */
   title?: string | undefined;
 
-  /** sub-title */
-  subTitle?: string | undefined;
+  /** title-image */
+  titleImage?: Entry<{ [fieldId: string]: unknown }> | undefined;
 
-  /** paragraphs */
-  paragraphs?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+  /** solutions-image */
+  solutionsImage?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** text */
+  text?: Entry<{ [fieldId: string]: unknown }> | undefined;
+
+  /** bullet-points */
+  bulletPoints?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
 }
 
-/** A component for text */
+/** View for Solutions page */
 
-export interface ITextDescription extends Entry<ITextDescriptionFields> {
+export interface ISolutions extends Entry<ISolutionsFields> {
   sys: {
     id: string;
     type: string;
@@ -559,7 +593,7 @@ export interface ITextDescription extends Entry<ITextDescriptionFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'textDescription';
+        id: 'solutions';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -568,22 +602,23 @@ export interface ITextDescription extends Entry<ITextDescriptionFields> {
 }
 
 export type CONTENT_TYPE =
-  | 'about'
+  | 'aboutSection'
   | 'button'
   | 'card'
-  | 'carousel'
-  | 'contact'
+  | 'contactSection'
   | 'footer'
-  | 'home'
-  | 'imageSection'
+  | 'heroSection'
+  | 'layout'
   | 'link'
   | 'multiImage'
+  | 'multiLink'
   | 'navbar'
+  | 'oneLineText'
   | 'paragraph'
-  | 'review'
+  | 'portfolioSection'
   | 'singleImage'
-  | 'stayWithUs'
-  | 'textDescription';
+  | 'socialMedia'
+  | 'solutions';
 
 export type LOCALE_CODE = 'en-US';
 
