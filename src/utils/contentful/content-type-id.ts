@@ -1,9 +1,11 @@
 export enum MainContentTypeId {
   NAVBAR = 'navbar',
-  HOME = 'home',
-  STAY_WITH_US = 'stayWithUs',
-  ABOUT = 'about',
-  REVIEW = 'review',
-  CONTACT = 'contact',
+  LAYOUT = 'layout',
+  HERO = 'heroSection',
+  ABOUT = 'aboutSection',
+  SOLUTIONS = 'solutions',
+  PORTFOLIO = 'portfolioSection',
+  CONTACT = 'contactSection',
+  SOCIAL_MEDIA = 'socialMedia',
   FOOTER = 'footer'
 }
