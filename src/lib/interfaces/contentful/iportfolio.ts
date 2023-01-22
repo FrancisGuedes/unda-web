@@ -1,4 +1,5 @@
-export module IAboutModule {
+export module IPortfolioModule {
+
     export interface IImage {
         width: number;
         height: number;
@@ -31,7 +32,7 @@ export module IAboutModule {
     export interface IFields {
         name: string;
         id: string;
-        media:IMedia;
+        media: IMedia;
         alt: string;
     }
 
@@ -39,37 +40,6 @@ export module IAboutModule {
         metadata: string;
         sys: string;
         fields: IFields;
-    }
-
-    export interface IContent2 {
-        data: string;
-        marks: any[];
-        value: string;
-        nodeType: string;
-    }
-
-    export interface IContent {
-        data: string;
-        content: IContent2[];
-        nodeType: string;
-    }
-
-    export interface IParagraphContent {
-        data: string;
-        content: IContent[];
-        nodeType: string;
-    }
-
-    export interface IFields3 {
-        name: string;
-        id: string;
-        paragraphContent: IParagraphContent;
-    }
-
-    export interface IText {
-        metadata: string;
-        sys: string;
-        fields: IFields3;
     }
 
     export interface IImage2 {
@@ -108,19 +78,75 @@ export module IAboutModule {
         alt: string;
     }
 
-    export interface IAboutImage {
+    export interface ICardImage {
         metadata: string;
         sys: string;
         fields: IFields4;
     }
 
-    export interface IAbout {
+    export interface IContent2 {
+        nodeType: string;
+        value: string;
+        marks: any[];
+        data: string;
+    }
+
+    export interface IContent {
+        nodeType: string;
+        data: string;
+        content: IContent2[];
+    }
+
+    export interface IParagraphContent {
+        nodeType: string;
+        data: string;
+        content: IContent[];
+    }
+
+    export interface IFields6 {
+        name: string;
+        id: string;
+        paragraphContent: IParagraphContent;
+    }
+
+    export interface ICardDescription {
+        metadata: string;
+        sys: string;
+        fields: IFields6;
+    }
+
+    export interface IFields7 {
+        name: string;
+        id: string;
+        text: string;
+    }
+
+    export interface ICardFooter {
+        metadata: string;
+        sys: string;
+        fields: IFields7;
+    }
+
+    export interface IFields3 {
+        name: string;
+        id: string;
+        cardImage: ICardImage[];
+        cardDescription: ICardDescription[];
+        cardFooter: ICardFooter[];
+    }
+
+    export interface ICardMain {
+        metadata: string;
+        sys: string;
+        fields: IFields3;
+    }
+
+    export interface IPortfolio {
         name: string;
         id: string;
         title: string;
         titleImage: ITitleImage;
-        text: IText[];
-        aboutImage: IAboutImage[];
+        cardMain: ICardMain[];
     }
 
 }

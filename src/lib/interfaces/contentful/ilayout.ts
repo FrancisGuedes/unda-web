@@ -1,27 +1,13 @@
-export module IHeroModule {
+export module ILayoutModule {
 
-    export interface IFields {
-        name: string;
-        id: string;
-        rel: string;
-        href: string;
-        title: string;
-    }
-
-    export interface INavlink {
-        metadata: string;
-        sys: string;
-        fields: IFields;
-    }
-
-    export interface IImage {
+    export interface IImage2 {
         width: number;
         height: number;
     }
 
     export interface IDetails {
         size: number;
-        image: IImage;
+        image: IImage2;
     }
 
     export interface IFile {
@@ -31,7 +17,7 @@ export module IHeroModule {
         contentType: string;
     }
 
-    export interface IFields3 {
+    export interface IFields2 {
         title: string;
         description: string;
         file: IFile;
@@ -40,29 +26,28 @@ export module IHeroModule {
     export interface IMedia {
         metadata: string;
         sys: string;
-        fields: IFields3;
+        fields: IFields2;
     }
 
-    export interface IFields2 {
+    export interface IFields {
         name: string;
         id: string;
+        title: string;
         href: string;
         media: IMedia;
         alt: string;
     }
 
-    export interface ILogo {
+    export interface IImage {
         metadata: string;
         sys: string;
-        fields: IFields2;
+        fields: IFields;
     }
 
-    export interface IHero {
+    export interface ILayout {
         name: string;
         id: string;
-        navlinks: INavlink[];
-        logo: ILogo;
+        image: IImage[];
     }
-
 }
 

@@ -1,35 +1,36 @@
-export module FooterModule {
-    export interface Sys {
-        space: object;
-        id: string;
-        type: string;
-        createdAt: Date;
-        updatedAt: Date;
-        environment: object;
-        revision: number;
-        contentType: object;
-        locale: string;
-    }
+export module IFooterModule {
 
     export interface IFields {
         name: string;
         id: string;
-        rel: string;
-        href: string;
+        text: string;
     }
 
-    export interface ICraftedPersonContainerLink {
-        metadata: object;
-        sys: Sys;
+    export interface IAuthorText {
+        metadata: string;
+        sys: string;
         fields: IFields;
+    }
+
+    export interface IFields2 {
+        name: string;
+        id: string;
+        rel: string;
+        href: string;
+        title: string;
+    }
+
+    export interface IAuthorLink {
+        metadata: string;
+        sys: string;
+        fields: IFields2;
     }
 
     export interface IFooter {
         name: string;
         id: string;
-        description: string;
-        craftedTitle: string;
-        craftedPersonName: string;
-        craftedPersonContainerLink: ICraftedPersonContainerLink;
+        allRightsText: string;
+        authorText: IAuthorText;
+        authorLink: IAuthorLink;
     }
 }

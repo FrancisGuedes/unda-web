@@ -1,4 +1,17 @@
-export module IAboutModule {
+export module IHeroModule {
+
+    export interface IFields {
+        name: string;
+        id: string;
+        text: string;
+    }
+
+    export interface ITitle {
+        metadata: string;
+        sys: string;
+        fields: IFields;
+    }
+
     export interface IImage {
         width: number;
         height: number;
@@ -16,7 +29,7 @@ export module IAboutModule {
         contentType: string;
     }
 
-    export interface IFields2 {
+    export interface IFields3 {
         title: string;
         description: string;
         file: IFile;
@@ -25,51 +38,36 @@ export module IAboutModule {
     export interface IMedia {
         metadata: string;
         sys: string;
-        fields: IFields2;
+        fields: IFields3;
     }
 
-    export interface IFields {
+    export interface IFields2 {
         name: string;
         id: string;
-        media:IMedia;
+        title: string;
+        media: IMedia;
         alt: string;
     }
 
-    export interface ITitleImage {
+    export interface IHeroImage {
         metadata: string;
         sys: string;
-        fields: IFields;
+        fields: IFields2;
     }
 
-    export interface IContent2 {
-        data: string;
-        marks: any[];
-        value: string;
-        nodeType: string;
-    }
-
-    export interface IContent {
-        data: string;
-        content: IContent2[];
-        nodeType: string;
-    }
-
-    export interface IParagraphContent {
-        data: string;
-        content: IContent[];
-        nodeType: string;
-    }
-
-    export interface IFields3 {
+    export interface IFields4 {
         name: string;
         id: string;
-        paragraphContent: IParagraphContent;
+        title: string;
+        href: string;
+        ariaLabel: string;
+        type: string;
     }
 
-    export interface IText {
+    export interface IButton {
         metadata: string;
         sys: string;
-        fields: IFields3;
+        fields: IFields4;
     }
 
     export interface IImage2 {
@@ -89,7 +87,7 @@ export module IAboutModule {
         contentType: string;
     }
 
-    export interface IFields5 {
+    export interface IFields6 {
         title: string;
         description: string;
         file: IFile2;
@@ -98,30 +96,29 @@ export module IAboutModule {
     export interface IMedia2 {
         metadata: string;
         sys: string;
-        fields: IFields5;
+        fields: IFields6;
     }
 
-    export interface IFields4 {
+    export interface IFields5 {
         name: string;
         id: string;
         media: IMedia2;
         alt: string;
     }
 
-    export interface IAboutImage {
+    export interface IButtonImage {
         metadata: string;
         sys: string;
-        fields: IFields4;
+        fields: IFields5;
     }
 
-    export interface IAbout {
+    export interface IHero {
         name: string;
         id: string;
-        title: string;
-        titleImage: ITitleImage;
-        text: IText[];
-        aboutImage: IAboutImage[];
+        title: ITitle[];
+        heroImage: IHeroImage[];
+        button: IButton;
+        buttonImage: IButtonImage;
     }
-
 }
 

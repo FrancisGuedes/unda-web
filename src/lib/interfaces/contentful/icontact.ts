@@ -1,78 +1,98 @@
-export module ContactModule {
-    export interface ISys2 {
-        space: object;
+export module IContactModule {
+
+    export interface IContent2 {
+        nodeType: string;
+        value: string;
+        marks: any[];
+        data: string;
+    }
+
+    export interface IContent {
+        nodeType: string;
+        data: string;
+        content: IContent2[];
+    }
+
+    export interface IParagraphContent {
+        nodeType: string;
+        data: string;
+        content: IContent[];
+    }
+
+    export interface IFields {
+        name: string;
         id: string;
-        type: string;
-        createdAt: Date;
-        updatedAt: Date;
-        environment: object;
-        revision: number;
-        contentType: object;
-        locale: string;
+        paragraphContent: IParagraphContent;
     }
 
-    export interface ISys {
-        space: object;
-        id: string;
-        type: string;
-        createdAt: Date;
-        updatedAt: Date;
-        environment: object;
-        revision: number;
-        contentType: object;
-        locale: string;
-    }
-
-    export interface File {
-        url: string;
-        details: object;
-        fileName: string;
-        contentType: string;
-    }
-
-    export interface IFields3 {
-        title: string;
-        description: string;
-        file: File;
-    }
-
-    export interface IMedia {
-        metadata: object;
-        sys: object;
-        fields: IFields3;
+    export interface IStatement {
+        metadata: string;
+        sys: string;
+        fields: IFields;
     }
 
     export interface IFields2 {
         name: string;
         id: string;
+        rel: string;
         href: string;
+        title: string;
+    }
+
+    export interface IButton {
+        metadata: string;
+        sys: string;
+        fields: IFields2;
+    }
+
+    export interface IImage {
+        width: number;
+        height: number;
+    }
+
+    export interface IDetails {
+        size: number;
+        image: IImage;
+    }
+
+    export interface IFile {
+        url: string;
+        details: IDetails;
+        fileName: string;
+        contentType: string;
+    }
+
+    export interface IFields4 {
+        title: string;
+        description: string;
+        file: IFile;
+    }
+
+    export interface IMedia {
+        metadata: string;
+        sys: string;
+        fields: IFields4;
+    }
+
+    export interface IFields3 {
+        name: string;
+        id: string;
         media: IMedia;
         alt: string;
     }
 
-    export interface ILink {
-        metadata: object;
-        sys: ISys2;
-        fields: IFields2;
-    }
-
-    export interface IFields {
-        links: ILink[];
-        name: string;
-        id: string;
-    }
-
-    export interface ISocialMediaLinks {
-        metadata: object;
-        sys: ISys;
-        fields: IFields;
+    export interface IButtonImage {
+        metadata: string;
+        sys: string;
+        fields: IFields3;
     }
 
     export interface IContact {
-        id: string;
         name: string;
-        socialMediaLinks: ISocialMediaLinks[];
-        title: string;
+        id: string;
+        statement: IStatement[];
+        button: IButton;
+        buttonImage: IButtonImage;
     }
 }
 
