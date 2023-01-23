@@ -1,4 +1,4 @@
-export module IHeroModule {
+export module HeroModule {
 
     export interface IFields {
         name: string;

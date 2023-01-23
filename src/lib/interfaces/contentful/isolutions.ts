@@ -1,4 +1,4 @@
-export module ISolutionsModule {
+export module SolutionsModule {
 
     export interface IImage {
         width: number;

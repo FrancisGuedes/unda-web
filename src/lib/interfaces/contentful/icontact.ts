@@ -1,4 +1,4 @@
-export module IContactModule {
+export module ContactModule {
 
     export interface IContent2 {
         nodeType: string;

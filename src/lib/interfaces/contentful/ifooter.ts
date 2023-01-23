@@ -1,4 +1,4 @@
-export module IFooterModule {
+export module FooterModule {
 
     export interface IFields {
         name: string;

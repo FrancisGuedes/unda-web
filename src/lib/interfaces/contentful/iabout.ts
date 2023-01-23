@@ -1,4 +1,4 @@
-export module IAboutModule {
+export module AboutModule {
     export interface IImage {
         width: number;
         height: number;

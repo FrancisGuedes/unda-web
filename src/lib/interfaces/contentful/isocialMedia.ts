@@ -1,4 +1,4 @@
-export module ISocialMediaModule {
+export module SocialMediaModule {
 
   export interface IImage {
       width: number;

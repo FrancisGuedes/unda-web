@@ -1,5 +1,4 @@
-export module IHeroModule {
-
+export module NavbarModule {
     export interface IFields {
         name: string;
         id: string;
@@ -57,7 +56,7 @@ export module IHeroModule {
         fields: IFields2;
     }
 
-    export interface IHero {
+    export interface INavbar {
         name: string;
         id: string;
         navlinks: INavlink[];

@@ -1,4 +1,4 @@
-export module IPortfolioModule {
+export module PortfolioModule {
 
     export interface IImage {
         width: number;

@@ -1,4 +1,4 @@
-export module ILayoutModule {
+export module LayoutModule {
 
     export interface IImage2 {
         width: number;
