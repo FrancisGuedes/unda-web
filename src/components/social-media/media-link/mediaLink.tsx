@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
 import AppLink from '../../app-link/appLink';
-import { ContactModule } from '../../../lib/interfaces/contentful/icontact';
 import { concatHttpsAndUrlFromContentful } from '../../../utils/utility';
 
 import './mediaLink.module.scss';
 import { LabelSocialMedia } from '../socialMedia';
+import { SocialMediaModule } from '../../../lib/interfaces/contentful/isocialMedia';
 
 interface MediaLinkProps {
-  linkMediaFile: ContactModule.File;
-  linkFields: ContactModule.IFields2
+  linkMediaFile: SocialMediaModule.IFile;
+  linkFields: SocialMediaModule.IFields2
   svgClassName: string;
   isSvgActive: boolean;
   isDescriptionSvgActive: boolean;

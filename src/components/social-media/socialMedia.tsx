@@ -1,4 +1,5 @@
 import { ContactModule } from '../../lib/interfaces/contentful/icontact';
+import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
 import { functionalityAlias } from '../../utils/strings';
 import { combineObjects } from '../../utils/utility';
 import MediaLink from './media-link/mediaLink';
@@ -6,7 +7,7 @@ import MediaLink from './media-link/mediaLink';
 import './socialMedia.module.scss';
 
 interface SocialMediaProps {
-  socialMediaProps: ContactModule.ISocialMediaLinks[];
+  socialMediaProps: SocialMediaModule.ISocialMediaContent[];
   isTitleOfContactActive: boolean;
   isSvgActive: boolean;
   isDescriptionSvgActive: boolean;
@@ -34,15 +35,17 @@ const SocialMedia = ({
   const labelSocialMedia: LabelSocialMedia = {...functionalityAlias.component.socialMedia};
   const classes: LabelSocialMedia = combineObjects(labelSocialMedia, className);
 
-  const renderContactLinksData = socialMediaProps.map((contactLinks: ContactModule.ISocialMediaLinks, index: number) => {
+  console.log("socialMediaProps", socialMediaProps)
+
+  const renderContactLinksData = socialMediaProps.map((contactLinks: SocialMediaModule.ISocialMediaContent, index: number) => {
     const contactLinkID: string = contactLinks['fields'].id;
     const contactTittleLink: string = contactLinks['fields'].name;
     
     // MAPPER FOR RENDERING MEDIA LINKS
-    const renderContactLinks = contactLinks['fields']['links'].map((link: ContactModule.ILink, index: number) => {
-      const linkMediaFile: ContactModule.File = link.fields.media.fields.file;
+    const renderContactLinks = contactLinks['fields']['links'].map((link: SocialMediaModule.ILink, index: number) => {
+      const linkMediaFile: ContactModule.IFile = link.fields.media.fields.file;
       const svgClassName: string = link.fields.media.fields.title;
-      const linkFields: ContactModule.IFields2 = link.fields;
+      const linkFields: SocialMediaModule.IFields2 = link.fields;
       
       return (
         <> 

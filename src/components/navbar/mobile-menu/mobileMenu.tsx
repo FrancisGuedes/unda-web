@@ -1,4 +1,4 @@
-import { ContactModule } from '../../../lib/interfaces/contentful/icontact';
+import { SocialMediaModule } from '../../../lib/interfaces/contentful/isocialMedia';
 import { strings } from '../../../utils/strings';
 import SocialMedia, { LabelSocialMedia } from '../../social-media/socialMedia';
 
@@ -8,7 +8,7 @@ interface MobileMenuProps {
   menuToggle: () => void;
   ariaLabel: string | undefined;
   renderNavlinks: JSX.Element[];
-  contactData: ContactModule.ISocialMediaLinks[];
+  socialMediaContact: SocialMediaModule.ISocialMediaContent[];
   isMobileMenuOpen: boolean;
 }
 
@@ -20,7 +20,7 @@ const MobileMenu = ({
   menuToggle,
   ariaLabel,
   renderNavlinks,
-  contactData,
+  socialMediaContact,
   isMobileMenuOpen
 }: MobileMenuProps) => {
   const labelMobileSocial: LabelMobileSocial = {...strings.component.navbar.social};
@@ -59,7 +59,7 @@ const MobileMenu = ({
             </h3>
             <div className="social-list">
               <SocialMedia 
-                socialMediaProps={contactData} 
+                socialMediaProps={socialMediaContact} 
                 isTitleOfContactActive={false} 
                 isSvgActive 
                 isDescriptionSvgActive={false}

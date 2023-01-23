@@ -1,6 +1,5 @@
 import AppLink from '../app-link/appLink';
 import SocialMedia, { LabelSocialMedia } from '../social-media/socialMedia';
-import { ContactModule } from '../../lib/interfaces/contentful/icontact';
 import { functionalityAlias, strings } from '../../utils/strings';
 
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -8,10 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './modal.module.scss';
 import { createClassName } from '../../utils/utility';
 import { useState, useEffect } from 'react';
+import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
 
 interface ModalProps {
   children?: React.ReactNode | React.ReactNode[] | undefined;
-  socialMediaProps?: ContactModule.ISocialMediaLinks[] | undefined;
+  socialMediaProps?: SocialMediaModule.ISocialMediaContent[] | undefined;
   isModalBakgroundActive: boolean;
   isSocialMediaActive: boolean;
   handleModal: () => void;
