@@ -9,7 +9,7 @@ interface AppParagraphProps {
   children?: React.ReactNode | undefined;
 }
 
-type LabelAppParagraph = {
+export type LabelAppParagraph = {
   defaultClassName: string;
   lang: string
 }
