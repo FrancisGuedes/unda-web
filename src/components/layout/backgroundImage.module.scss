@@ -1,7 +1,8 @@
 @use '../../styles/core/vars';
 
 .content-section-bg {
-  background-image: var(--imageUrl);
+  // background-image: var(--imageUrl);
+  background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), var(--imageUrl);
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -10,5 +11,9 @@
   .content-section {
     width: 100%;
   }
+}
+
+.content-section-bg {
+  
 }
 
