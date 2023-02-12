@@ -1,0 +1,14 @@
+@use '../../styles/core/vars';
+
+.content-section-bg {
+  background-image: var(--imageUrl);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  z-index: -1;
+  padding: vars.$paddingDefault;
+  .content-section {
+    width: 100%;
+  }
+}
+
