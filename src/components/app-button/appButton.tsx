@@ -9,7 +9,7 @@ interface AppButtonProps extends React.HTMLProps<HTMLButtonElement> {
   ariaLabel: string;
   className?: string | undefined;
   disabled?: boolean | undefined;
-  rel: string;
+  rel?: string | undefined;
   href?: string | undefined;
   target?: string;
 }
@@ -25,11 +25,10 @@ const AppButton = ({
   type,
   ariaLabel,
   disabled=false,
-  rel,
+  rel='canonical',
   href,
   target
 }: AppButtonProps) => {
-  
   const labelAppButton: LabelAppButton = {...functionalityAlias.component.appButton};
   let classes: string = createClassName(labelAppButton.defaultClassName, className);
 

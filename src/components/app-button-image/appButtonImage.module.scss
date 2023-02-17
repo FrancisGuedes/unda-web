@@ -1,0 +1,17 @@
+@use '../../styles/core/colors';
+
+.home-button-wrapper {
+  position: relative;
+  width: 136px;
+  .app-button-image {
+    cursor: pointer;
+  }
+  .app-button-button {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    background-color: colors.$black;
+    width: 80%;
+  }
+}
