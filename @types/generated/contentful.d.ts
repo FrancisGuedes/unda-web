@@ -405,7 +405,7 @@ export interface IOneLineTextFields {
   id?: string | undefined;
 
   /** text */
-  text?: string | undefined;
+  text?: Document | undefined;
 }
 
 export interface IOneLineText extends Entry<IOneLineTextFields> {
@@ -619,6 +619,25 @@ export type CONTENT_TYPE =
   | 'singleImage'
   | 'socialMedia'
   | 'solutions';
+
+export type IEntry =
+  | IAboutSection
+  | IButton
+  | ICard
+  | IContactSection
+  | IFooter
+  | IHeroSection
+  | ILayout
+  | ILink
+  | IMultiImage
+  | IMultiLink
+  | INavbar
+  | IOneLineText
+  | IParagraph
+  | IPortfolioSection
+  | ISingleImage
+  | ISocialMedia
+  | ISolutions;
 
 export type LOCALE_CODE = 'en-US';
 

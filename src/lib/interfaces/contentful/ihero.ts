@@ -1,9 +1,26 @@
 export module HeroModule {
+    export interface IContent2 {
+        nodeType: string;
+        value: string;
+        marks: any[];
+        data: object;
+    }
+
+    export interface IContent {
+        nodeType: string;
+        data: object;
+        content: IContent2[];
+    }
+    export interface IText {
+        nodeType: string;
+        data: string;
+        content: IContent[];
+    }
 
     export interface IFields {
         name: string;
         id: string;
-        text: string;
+        text: IText;
     }
 
     export interface ITitle {

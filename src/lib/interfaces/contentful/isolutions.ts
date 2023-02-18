@@ -115,10 +115,43 @@ export module SolutionsModule {
         fields: IFields5;
     }
 
+    export interface IContent6 {
+        nodeType: string;
+        value: string;
+        marks: any[];
+        data: object;
+    }
+
+    export interface IContent5 {
+        nodeType: string;
+        data: object;
+        content: IContent6[];
+    }
+
+    export interface IContent4 {
+        nodeType: string;
+        data: object;
+        content: IContent5[];
+        value: string;
+        marks: any[];
+    }
+
+    export interface IContent3 {
+        nodeType: string;
+        data: object;
+        content: IContent4[];
+    }
+
+    export interface IText2 {
+        nodeType: string;
+        data: object;
+        content: IContent3[];
+    }
+
     export interface IFields6 {
         name: string;
         id: string;
-        text: string;
+        text: IText2;
     }
 
     export interface IBulletPoint {
