@@ -1,15 +1,13 @@
-import { IAboutFields } from '../../../@types/generated/contentful';
-
-import { LegacyRef } from 'react';
-import AppButton from '../../components/app-button/appButton';
-import { AboutImageContentModule, AboutModule } from '../../lib/interfaces/contentful/iabout';
+import AppTitleImage from '../../components/app-title-image/appTitleImage';
+import AppParagraph from '../../components/app-paragraph/appParagraph';
+import { AboutModule } from '../../lib/interfaces/contentful/iabout';
+import { IAboutSectionFields } from '../../../@types/generated/contentful';
 import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
-import Ameneties from './ameneties/ameneties';
 
 import './about.module.scss';
 
 interface AboutProps {
-  aboutSectionProps: IAboutFields[];
+  aboutSectionProps: IAboutSectionFields[];
   aboutRef: any;
 }
 
@@ -22,36 +20,56 @@ const About = ({
   .next()
   .value;
 
-  const imageDescription: string = aboutData['imageContent']['fields']['media']['fields'].description;
-  const imageFile:  AboutImageContentModule.IFile = aboutData['imageContent']['fields']['media']['fields']['file'];
-  const imageUrl: string = concatHttpsAndUrlFromContentful(imageFile.url);
-  const buttonName = aboutData['aboutButton']['fields'].name;
-  const buttonHrefData = aboutData['aboutButton']['fields']['href']['fields'];
+  const aboutTitle: string = aboutData['title'];
+  const aboutTitleImage: AboutModule.IFile = aboutData['titleImage']['fields']['media']['fields']['file'];
+  // 1366 and 768 -> width and height were divided by 5.5
+  const aboutTitleImageUrl: string = concatHttpsAndUrlFromContentful(aboutTitleImage.url);
 
+  const aboutImage:  AboutModule.IFile = aboutData['aboutImage'][0]['fields']['media']['fields']['file'];
+  const aboutImageUrl: string = concatHttpsAndUrlFromContentful(aboutImage.url);
+  const aboutImageAlt: string = aboutData['aboutImage'][0]['fields'].alt;
+
+  const aboutText: AboutModule.IContent[] = aboutData['text'][0]['fields']['paragraphContent']['content'];
+
+  const aboutTextParagraph: JSX.Element[] = aboutText.map((phrase: AboutModule.IContent, index: number) => {
+    let linePhrase: string = phrase['content'].map(line => line.value).toString();
+    return (
+      <> 
+        <div key={index}>
+          <AppParagraph
+            className='about-text-paragraph'
+          >
+            {linePhrase}
+          </AppParagraph>
+        </div>
+      </>
+    );
+  })
 
   return (
     <>
       <section id="about" className='about-wrapper' ref={aboutRef}>
-        <div className="about-container">
-          <Ameneties aboutData={aboutData} />
-          <span className="about-image_wrapper">
-            <img
-              alt={`About description for ${imageDescription}`}
-              src={imageUrl}
+      <div className="about-content">
+          <div className="about-text-wrapper">
+            <div className="about-text-title">
+              <AppTitleImage 
+                src={aboutTitleImageUrl} 
+                imageWidth={248} 
+                imageHeight={140} 
+                titleLabel={aboutTitle} 
+                />                
+            </div>
+            <div className="about-text-content">
+              {aboutTextParagraph}
+            </div>
+          </div>
+          <picture className="about-image-wrapper">
+            <img 
+              src={aboutImageUrl} 
+              alt={aboutImageAlt}
+              className="about-image"
             />
-          </span>
-        </div>
-        <div className="about-button-wrapper">
-          <AppButton
-            type='button'
-            className='about-button'
-            ariaLabel={buttonName}
-            rel={buttonHrefData.rel}
-            href={buttonHrefData.href}
-            target='_blank'
-          >
-            {buttonName}
-          </AppButton>
+          </picture>
         </div>
       </section>
     </>
