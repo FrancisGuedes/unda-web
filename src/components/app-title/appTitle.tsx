@@ -7,7 +7,7 @@ interface AppTitleProps {
   id?: string | undefined;
   className?: string | undefined;
   children?: React.ReactNode | undefined;
-  title?: string | undefined;
+  title?: string;
 }
 
 const AppTitle = ({
