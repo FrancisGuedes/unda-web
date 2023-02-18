@@ -1,26 +1,42 @@
 @use '../../styles/core/mediaQueries';
+@use '../../styles/core/colors';
+
 
 .home-wrapper {
-  /* min-height: calc(100vh - 18vh);
-  @include mediaQueries.minWidthBigDesktops {
-    min-height: calc(100vh - 14vw);
-  }
-  @include mediaQueries.tablet {
-    min-height: calc(100vh - 16vh);
-  }; */
+  align-items: center;
   padding-bottom: 30px;
   padding-top: 30px;
-  .carousel-wrapper {
-    position: relative;
-  }
-  .home-button {
-    margin: 30px auto;
+  .home-content {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-content: center;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    a {
-      padding-top: 3.5px;
+    .home-text-wrapper {
+      margin: 60px 0;
+      @include mediaQueries.desktop {
+        width: 100%;
+      };
+      .home-text-content {
+      }
+      .home-button-image {
+      }
+      .home-button-button {
+      }
+    }
+    .home-image-wrapper {
+      margin: 60px 0;
+      width: 55%;
+      height: 100%;
+      @include mediaQueries.desktop {
+        width: 100%;
+      };
+      .home-image {
+        height: 100%;
+        width: 100%;
+        min-width: 450px;
+      }
     }
   }
 }

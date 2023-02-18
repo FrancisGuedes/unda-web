@@ -1,75 +1,89 @@
 import { NextPage } from 'next';
+import { title } from 'process';
 import { useEffect, useState } from 'react';
+import Image from "next/image";
 
-import { IHomeFields } from '../../../@types/generated/contentful';
+import { IHeroSectionFields } from '../../../@types/generated/contentful';
+
 import AppButton from '../../components/app-button/appButton';
+import AppTitle from '../../components/app-title/appTitle';
 import Carousel from '../../components/carousel/carousel';
-import { CarouselModule, HomeButtonModule } from '../../lib/interfaces/contentful/ihome';
+import { HeroModule } from '../../lib/interfaces/contentful/ihero';
 
 import './home.module.scss';
-
+import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
+import AppButtonImage from '../../components/app-button-image/appButtonImage';
 
 interface IHomeProps {
-  homeSectionProps: IHomeFields[];
+  homeSectionProps: IHeroSectionFields[]
   homeRef: any;
 }
 
-const Home: NextPage<IHomeProps>  = ({ 
-  homeSectionProps ,
-  homeRef
+const Home: NextPage<IHomeProps> = ({
+  homeSectionProps,
+  homeRef,
 }: IHomeProps) => {
-  const [contentfulHomeData, setContentfulHomeData] = useState<Array<IHomeFields>>([]);
-  
-  // button data
-  const buttonDataFields: HomeButtonModule.IFields2 = new Map(Object.entries(homeSectionProps))
-  .values()
-  .next()
-  .value['buttonData']['fields']['href']['fields'];
-  const buttonLinkFields: HomeButtonModule.IFields3 = buttonDataFields.href.fields;
+  //console.log("homeSectionProps", homeSectionProps);
 
-  // carousel data
-  const carouselMedia: CarouselModule.IFields[] = new Map(Object.entries(homeSectionProps))
-  .values()
-  .next()
-  .value['carouselData']['fields']['carouselMedia'];
+  const homeSectionData: HeroModule.IHero = new Map(
+    Object.entries(homeSectionProps))
+    .values()
+    .next().value;
   
-  useEffect(() => {
-    setContentfulHomeData(homeSectionProps);
-  }, []);
+  const homeTitle: JSX.Element[] = homeSectionData['title'].map((text: HeroModule.ITitle, index: number) => {
+    return (
+      <> 
+        <div key={index}>
+          <AppTitle>
+            {text.fields.text}
+          </AppTitle>
+        </div>
+      </>
+    );
+  })
+
+  const buttonDataFields: HeroModule.IFields4 = homeSectionData['button']['fields'];
+  const buttonImageDataFields: HeroModule.IFile2 = homeSectionData['buttonImage']['fields']['media']['fields']['file'];
+
+  const buttonImageUrl: string = concatHttpsAndUrlFromContentful(buttonImageDataFields.url);
+
+  const homeImage: HeroModule.IFile = homeSectionData['heroImage'][0]['fields']['media']['fields']['file'];
+  const homeImageAlt: string = homeSectionData['heroImage'][0]['fields'].alt;
+
+  const homeImageUrl: string = concatHttpsAndUrlFromContentful(homeImage.url);
+
+  console.log("homeTitleData", homeTitle);
 
   return (
     <>
-      <section id="#" className='home-wrapper' ref={homeRef}>
-        <div className='carousel-wrapper'>
-          <Carousel
-            slides={carouselMedia}
-            autoplayOptions={{ 
-              delay: 3000, 
-              stopOnInteraction: false 
-            }}
-            emblaOptions={{
-              loop: true,
-              skipSnaps: false
-            }}
-            isPrevBtnEnabled
-            isNextBtnEnabled
-            isDotsActive
-            isSlideImageActive
-          />
+      <section id="#" className="home-wrapper" ref={homeRef}>
+        <div className="home-content">
+          <div className="home-text-wrapper">
+            <div className="home-text-content">
+              {homeTitle}
+            </div>
+            <AppButtonImage
+              src={buttonImageUrl} 
+              imageWidth={136} 
+              imageHeight={76} 
+              classNameImage='home-button-image' 
+              classNameButton="home-button-button"
+              ariaLabel={buttonDataFields.ariaLabel} 
+              href={buttonDataFields.href} 
+              buttonLabel={buttonDataFields.title}       
+            />
+          </div>
+          <picture className="home-image-wrapper">
+            <img 
+              src={homeImageUrl} 
+              alt={homeImageAlt}
+              className="home-image"
+            />
+          </picture>
         </div>
-        <AppButton
-          type='button'
-          className='home-button'
-          ariaLabel={buttonDataFields.ariaLabel}
-          rel={buttonLinkFields.rel}
-          href={buttonLinkFields.href}
-          target='_blank'
-        >
-          {buttonLinkFields.title}
-        </AppButton>
       </section>
     </>
   );
-}
+};
 
 export default Home;
