@@ -1,0 +1,9 @@
+@use '../../styles/core/mediaQueries';
+
+.app-title {
+  margin: 16px 0;
+  font-size: 2.4vw;
+  @include mediaQueries.desktop {
+    font-size: 30px;
+  };
+}
