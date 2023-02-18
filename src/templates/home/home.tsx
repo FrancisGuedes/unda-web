@@ -1,19 +1,12 @@
 import { NextPage } from 'next';
-import { title } from 'process';
-import { useEffect, useState } from 'react';
-import Image from "next/image";
 
-import { IHeroSectionFields } from '../../../@types/generated/contentful';
-
-import AppButton from '../../components/app-button/appButton';
 import AppTitle from '../../components/app-title/appTitle';
-import Carousel from '../../components/carousel/carousel';
+import AppButtonImage from '../../components/app-button-image/appButtonImage';
+import { IHeroSectionFields } from '../../../@types/generated/contentful';
 import { HeroModule } from '../../lib/interfaces/contentful/ihero';
+import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
 
 import './home.module.scss';
-import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
-import AppButtonImage from '../../components/app-button-image/appButtonImage';
-
 interface IHomeProps {
   homeSectionProps: IHeroSectionFields[]
   homeRef: any;
