@@ -45,8 +45,6 @@ const Home: NextPage<IHomeProps> = ({
 
   const homeImageUrl: string = concatHttpsAndUrlFromContentful(homeImage.url);
 
-  console.log("homeTitleData", homeTitle);
-
   return (
     <>
       <section id="#" className="home-wrapper" ref={homeRef}>
