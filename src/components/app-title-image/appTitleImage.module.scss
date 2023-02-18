@@ -1,0 +1,15 @@
+@use '../../styles/core/rules';
+@use '../../styles/core/mediaQueries';
+
+.app-title-image_wrapper {
+  position: relative;
+  width: 248px;
+  .app-title-image_image {
+  }
+  .app-title-image_title {
+    @include rules.center;
+    width: 155px;
+    height: 50px;
+    font-size: 27px;
+  }
+}
