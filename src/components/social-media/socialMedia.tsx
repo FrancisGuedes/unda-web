@@ -1,4 +1,3 @@
-import { ContactModule } from '../../lib/interfaces/contentful/icontact';
 import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
 import { functionalityAlias } from '../../utils/strings';
 import { combineObjects } from '../../utils/utility';
@@ -35,15 +34,15 @@ const SocialMedia = ({
   const labelSocialMedia: LabelSocialMedia = {...functionalityAlias.component.socialMedia};
   const classes: LabelSocialMedia = combineObjects(labelSocialMedia, className);
 
-  console.log("socialMediaProps", socialMediaProps)
+  //console.log("socialMediaProps", socialMediaProps)
 
   const renderContactLinksData = socialMediaProps.map((contactLinks: SocialMediaModule.ISocialMediaContent, index: number) => {
     const contactLinkID: string = contactLinks['fields'].id;
-    const contactTittleLink: string = contactLinks['fields'].name;
+    const contactTittleLink: string = contactLinks['fields'].title;
     
     // MAPPER FOR RENDERING MEDIA LINKS
     const renderContactLinks = contactLinks['fields']['links'].map((link: SocialMediaModule.ILink, index: number) => {
-      const linkMediaFile: ContactModule.IFile = link.fields.media.fields.file;
+      const linkMediaFile: SocialMediaModule.IFile = link.fields.media.fields.file;
       const svgClassName: string = link.fields.media.fields.title;
       const linkFields: SocialMediaModule.IFields2 = link.fields;
       
@@ -68,7 +67,10 @@ const SocialMedia = ({
     return (
       <> 
         <span className="top-line"/>
-        <div className={`${contactLinkID} ${classes.contactLink}`} key={index}>
+        <div 
+          className={`${contactLinkID} ${classes.contactLink}`} 
+          key={index}
+        >
           { isTitleOfContactActive 
             ? 
               <h3>
