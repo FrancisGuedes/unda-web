@@ -115,10 +115,28 @@ export module PortfolioModule {
         fields: IFields6;
     }
 
+    export interface IContent4 {
+        nodeType: string;
+        value: string;
+        marks: any[];
+        data: object;
+    }
+
+    export interface IContent3 {
+        nodeType: string;
+        data: object;
+        content: IContent4[];
+    }
+
+    export interface IText {
+        nodeType: string;
+        data: object;
+        content: IContent3[];
+    }
     export interface IFields7 {
         name: string;
         id: string;
-        text: string;
+        text: IText;
     }
 
     export interface ICardFooter {
