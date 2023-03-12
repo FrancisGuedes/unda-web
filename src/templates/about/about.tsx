@@ -49,12 +49,12 @@ const About = ({
   return (
     <>
       <section id="about" className='about-wrapper' ref={aboutRef}>
-      <div className="about-content">
+        <div className="about-content">
           <div className="about-text-wrapper">
             <div className="about-text-title">
               <AppTitleImage 
                 src={aboutTitleImageUrl} 
-                imageWidth={248} 
+                imageWidth={228} 
                 imageHeight={140} 
                 titleLabel={aboutTitle} 
                 />                

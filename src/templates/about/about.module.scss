@@ -7,6 +7,11 @@
   align-items: center;
   padding-bottom: 30px;
   padding-top: 30px;
+  height: 100vh;
+  display: flex;
+  @include mediaQueries.desktop {
+    height: 100%;
+  };
   .about-content {
     display: flex;
     flex-direction: row;
