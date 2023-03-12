@@ -12,6 +12,7 @@ interface AppTitleImageProps {
   classNameImage?: string | undefined;
   titleLabel: string
   classNameTitle?: string | undefined;
+  classNameWrapper?: string | undefined;
 }
 
 type LabelAppTitleImage = {
@@ -24,16 +25,19 @@ const AppTitleImage = ({
   imageHeight,
   classNameImage,
   titleLabel,
-  classNameTitle
+  classNameTitle,
+  classNameWrapper
 }: AppTitleImageProps) => {
   const labelAppTitle: LabelAppTitleImage = {...functionalityAlias.component.appTitleImageTitle};
   const labelAppImage: LabelAppTitleImage = {...functionalityAlias.component.appTitleImageImage};
+  const labelAppWrapper: LabelAppTitleImage = {...functionalityAlias.component.appTitleImageWrapper};
   let classesNameTitle: string = createClassName(labelAppTitle.defaultClassName, classNameTitle);
   let classesNameImage: string = createClassName(labelAppImage.defaultClassName, classNameImage);
+  let classesNameWrapper: string = createClassName(labelAppWrapper.defaultClassName, classNameWrapper);
 
   return (
     <>
-      <div className="app-title-image_wrapper">
+      <div className={classesNameWrapper}>
         <Image
           src={src}
           width={imageWidth}
