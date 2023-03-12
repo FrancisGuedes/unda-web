@@ -1,0 +1,25 @@
+@use '../../styles/core/mediaQueries';
+@use '../../styles/core/colors';
+@use '../../styles/core/vars';
+
+.social-media-view_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 25vh;
+  min-height: 300px;
+  padding: vars.$paddingFooter;
+  //background-color: colors.$black;
+  background-color: #dcdcdc;
+  //color: white;
+
+  /* bottom: 0;
+  position: absolute; */
+  @include mediaQueries.desktop {
+    flex-direction: column;
+  }
+}
