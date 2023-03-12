@@ -16,22 +16,24 @@ const Footer = ({
   .next()
   .value;
 
-  const craftedFields: FooterModule.IFields = footerData.craftedPersonContainerLink.fields;
+  const authorLink: string = footerData['authorLink']['fields'].href;
+  const allRights: string = footerData.allRightsText;
+  const authorText = footerData['authorText']['fields']['text']['content'][0]['content'][0].value;
 
   return (
     <>
       <footer id="footer" className='footer-wrapper'>
         <div className="footer-container">
           <label className="label-description">
-            &copy;&nbsp;{footerData.description}
+            &copy;&nbsp;{allRights}
           </label>
           <div className="crafted-description">
             <div className="crafted-by">
               <AppLink
                 className='crafted-link'
-                href={craftedFields.href}
+                href={authorLink}
               >
-                {footerData.craftedTitle}&nbsp;{footerData.craftedPersonName}&nbsp;&#9829;
+                {authorText}&nbsp;&#9829;
               </AppLink>
             </div>
           </div>
