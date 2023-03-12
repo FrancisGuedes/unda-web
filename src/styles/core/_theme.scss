@@ -3,6 +3,7 @@
 @use 'fonts';
 @use 'vars';
 @use 'animations';
+@use 'rules';
 
 @font-face { 
   font-family: 'Aileron';
@@ -22,8 +23,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Aileron', sans-serif;
-  //font-family: 'Montserrat', sans-serif;
+  //font-family: 'Aileron', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   //font-family: 'Vidaloka', serif;
   font-weight: fonts.$font-medium;
 }
@@ -33,7 +34,7 @@ body {
 }
 
 main {
-  padding: 80px 5vw 5vh 4.5vw;
+  padding: vars.$paddingDefault;
   min-height: 100vh;
   @include mediaQueries.minWidthBigDesktops {
     padding: 80px 15% 5vh 15%;
@@ -42,7 +43,7 @@ main {
     padding: 80px 5vw 5vh 6.5vw;
   };
   @include mediaQueries.maxWidthMobile {
-    padding: 80px 5vw 5vh 4.5vw;
+    padding: vars.$paddingDefault;
   }
 }
 
@@ -62,6 +63,7 @@ p {
   margin: 5px 0;
   font-size: 20px;
   line-height: 24px;
+  font-weight: fonts.$font-regular;
 }
 
 h1 {
