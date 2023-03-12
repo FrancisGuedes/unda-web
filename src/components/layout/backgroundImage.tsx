@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useEffect } from "react";
 import { LayoutModule } from "../../lib/interfaces/contentful/ilayout";
 import { concatHttpsAndUrlFromContentful } from "../../utils/utility";
@@ -15,7 +14,9 @@ const BackgroundImage = ({
   const imageUrl: string = concatHttpsAndUrlFromContentful(layoutData.url);
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--imageUrl', `url('${imageUrl}')`)
+    if (typeof document !== "undefined") {
+      document.documentElement.style.setProperty('--imageUrl', `url('${imageUrl}')`)
+    }
   }, []);
 
   /* useEffect(() => {
