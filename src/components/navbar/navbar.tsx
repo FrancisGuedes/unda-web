@@ -8,21 +8,21 @@ import {
 import Logo from '../logo/logo';
 import AppLink from '../app-link/appLink';
 import Modal from '../modal/modal';
+import MobileMenu from './mobile-menu/mobileMenu';
+import DesktopMenu from './desktop-menu/desktopMenu';
 import { LabelSocialMedia } from '../social-media/socialMedia';
 import { NavbarModule } from '../../lib/interfaces/contentful/inavbar';
+import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
 import {
   getWindowSize,
   IWindowSize,
   useScrollYPosition,
 } from '../../utils/utility';
 import { strings } from '../../utils/strings';
-import MobileMenu from './mobile-menu/mobileMenu';
-import DesktopMenu from './desktop-menu/desktopMenu';
 import { NavSectionRefs } from '../../pages';
 
 import tabletSizeWindow from './navbar.module.scss';
 import './navbar.module.scss';
-import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
 
 interface INavbarProps {
   navbarSectionProps: INavbarFields[];
@@ -57,7 +57,6 @@ const Navbar: NextPage<INavbarProps> = ({
   );
   const windowWidth: number | undefined = windowSize?.innerWidth;
 
-  // TODO add LOGO data here
   const logoData: NavbarModule.ILogo = new Map(
     Object.entries(navbarSectionProps),
   )
@@ -90,7 +89,7 @@ const Navbar: NextPage<INavbarProps> = ({
     handleDomScrollActiveLink();
   }, [lastScrollY]);
 
-  /* const nearestIndex = (
+  const nearestIndex = (
     currentPosition: number,
     sectionPositionArray: any,
     startIndex: number,
@@ -138,9 +137,9 @@ const Navbar: NextPage<INavbarProps> = ({
         }
       }
     } else return 0;
-  }; */
+  }; 
 
-  /* const handleScrollActiveLink = () => {
+  const handleScrollActiveLink = () => {
     var index: number = nearestIndex(
       window.scrollY,
       navSectionRefs,
@@ -148,7 +147,7 @@ const Navbar: NextPage<INavbarProps> = ({
       navSectionRefs.length - 1
     );
     setActiveNavLink(index);
-  }; */
+  }; 
 
   const renderNavlinks: JSX.Element[] = navlinksData.map(
     (navlinkInfo: NavbarModule.INavlink, index: number) => {
@@ -236,9 +235,9 @@ const Navbar: NextPage<INavbarProps> = ({
 
   function handleDomScrollActiveLink(): (() => void) | undefined {
     if (typeof window !== 'undefined') {
-      //document.addEventListener('scroll', handleScrollActiveLink);
+      document.addEventListener('scroll', handleScrollActiveLink);
       return () => {
-        //document.removeEventListener('scroll', handleScrollActiveLink);
+        document.removeEventListener('scroll', handleScrollActiveLink);
       };
     }
   }
@@ -250,8 +249,6 @@ const Navbar: NextPage<INavbarProps> = ({
   };
 
   const labelModalContent = { ...strings.component.navbar.modalContent };
-
-   //console.log('socialMediaData: ', socialMediaData);
 
   return (
     <header
