@@ -17,7 +17,6 @@
   padding: 0 5vw;
   height: 80px;
   width: 100%;
-  background-color: colors.$mainBackground;
   z-index: 1;
   .navbar-logo {
     cursor: pointer;
@@ -38,6 +37,7 @@
 
 .shadow {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 1px 0px;//-1px 0px 1px 0px;
+  background-color: colors.$mainBackground;
 }
 
 .underline {

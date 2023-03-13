@@ -19,12 +19,12 @@
     padding: vars.$footerPaddingMinWidthBigDesktops;
   }
   @include mediaQueries.tablet {
-    padding: vars.$footerPaddingTablet;
+    //padding: vars.$footerPaddingTablet;
     height: 65vh;
     min-height: 650px;
   };
   @include mediaQueries.maxWidthMobile {
-    padding: vars.$footerMaxWidthMobile;
+    //padding: vars.$footerMaxWidthMobile;
   }
   .contact-title-wrapper {
     /* display: flex;
