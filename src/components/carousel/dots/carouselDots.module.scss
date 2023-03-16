@@ -1,0 +1,25 @@
+@use '../../../styles/core/colors';
+
+.dots {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+}
+
+.dot {
+  border: none;
+  width: 3px;
+  height: 3px;
+  background: colors.$dotNotSelected;
+  border-radius: 50%;
+  margin: 0 5px;
+  padding: 4px;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &.active {
+    background: colors.$black;
+    transform: scale(1.2);
+  }
+}
