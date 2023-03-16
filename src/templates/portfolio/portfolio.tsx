@@ -7,8 +7,9 @@ import KeenSlider, { useKeenSlider } from 'keen-slider/react';
 
 import "keen-slider/keen-slider.min.css";
 import './portfolio.module.scss';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import AppParagraph from '../../components/app-paragraph/appParagraph';
+import CarouselDots from '../../components/carousel/dots/carouselDots';
 
 interface portfolioSectionProps {
   portfolioSectionProps: IPortfolioSectionFields[];
@@ -22,15 +23,32 @@ const Portfolio = ({
   const [localSlide, setLocalSlide] = useState<any>();
   const [imageContentful, setImageContentful] = useState<string[][]>([]);
 
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [loaded, setLoaded] = useState<boolean>(false);
+
+  const handleSlideChange = (slide: number) => {
+    setCurrentSlide(slide);
+  };
+
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
       spacing: 20,
-      slidesPerView: 2,
+      slidesPerView: 1,
+      breakpoints: {
+        '(min-width: 667px)': {
+          slidesPerView: 1.5,
+        },
+        '(min-width: 970px)': {
+          slidesPerView: 2,
+        },
+        '(min-width: 1800px)': {
+          slides: 3,
+        },
+      },
+      slideChanged: (s) => handleSlideChange(s.details().relativeSlide),
       created(slider) {
         setLocalSlide({...slider})
-      },
-      slideChanged(slider) {
-        setLocalSlide({...slider})
+        setLoaded(true)
       },
     } 
   );
@@ -64,12 +82,13 @@ const Portfolio = ({
   // 1366 and 768 -> width and height were divided by 7.5
   const portfolioTitleImageUrl: string = concatHttpsAndUrlFromContentful(portfolioTitleImage.url);
 
+  //TODO Make carousel into small components
   // CAROUSEL
   const portfoliorCarouselData = portfolioData['cardMain'].map((card: PortfolioModule.ICardMain, index: number) => {
     const cardData = card['fields'];
 
     // CARD IMAGE
-    const cardImageAlt: string = cardData['cardImage'].map((image: PortfolioModule.ICardImage, index: number) => {
+    const cardImageAlt: string = cardData['cardImage'].map((image: PortfolioModule.ICardImage) => {
       return image['fields'].alt;
     }).toString();
     const cardImageUrls: string[] = imageContentful[index];
@@ -131,9 +150,14 @@ const Portfolio = ({
       );
     });
 
+    // Set loaded to true after slider has initialized
+    if (sliderRef && !loaded) {
+      setLoaded(true);
+    }
+
     return (
       <> 
-        <div className="portfolio-carousel-card_wrapper" key={index}>
+        <div className="keen-slider__slide portfolio-carousel-card_wrapper" key={index} >
           <div className="portfolio-card-image_wrapper">
             {cardImage}
           </div>
@@ -143,6 +167,7 @@ const Portfolio = ({
           <div className="portfolio-card-footer_wrapper">
             {cardFooter}
           </div>
+          
         </div>
       </>
     );
@@ -163,16 +188,18 @@ const Portfolio = ({
               />                
           </div>
           <div className="keen-slider portfolio-carousel-wrapper" ref={sliderRef}>
-            <div className="keen-slider__slide carousel-item">
+            <div className="carousel-item" >
               {portfoliorCarouselData}
+            </div>
+            <div className="dots-wrapper">
+              <CarouselDots 
+                loaded={loaded} 
+                instanceRef={instanceRef} 
+                currentSlide={currentSlide}        
+              />
             </div>
           </div>
         </div>
-          
-          {/* <span className="carousel-idx">{`${localSlide?.track?.details.rel + 1} / ${
-              localSlide?.track?.details.length + 1
-            }`}
-          </span> */}
       </section>
     </>
   );

@@ -37,6 +37,10 @@
       width: 74%;
       height: 100%;
       margin: 60px 0;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: center;
       @include mediaQueries.desktop {
         width: 100%;
       };
@@ -48,6 +52,10 @@
         justify-content: space-between;
         flex-wrap: nowrap;
         align-items: flex-start;
+        margin-bottom: 60px;
+        @include mediaQueries.maxWidthMobile {
+          margin-bottom: 50px;
+        };
         .portfolio-carousel-card_wrapper {
           max-height: 750px;
           width: 32vw;
@@ -105,7 +113,16 @@
         }
         
       }
+      .dots-wrapper {
+        @include mediaQueries.minWidthdesktop {
+          display: none;
+        }
+      }
     }
   }
 }
+
+
+
+
 
