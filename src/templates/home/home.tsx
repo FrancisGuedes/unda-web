@@ -24,11 +24,12 @@ const Home: NextPage<IHomeProps> = ({
     .next().value;
   
   const homeTitle: JSX.Element[] = homeSectionData['title'].map((text: HeroModule.ITitle, index: number) => {
+    const titleLabel = text['fields']['text']['content'][0]['content'][0].value;
     return (
       <> 
         <div key={index}>
           <AppTitle>
-            {text.fields.text}
+            {titleLabel}
           </AppTitle>
         </div>
       </>
