@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
-import { LabelCarouselClassName, LabelCarouselSlideTextClassName } from "../components/carousel.OLD/carousel";
 import { LabelSocialMedia } from "../components/social-media/socialMedia";
 import { HTTPS } from "../lib/endpoints";
+
+export type LabelCarouselClassName = {
+  [key: string]: string | number,
+  embla: string,
+  embla_viewport: string,
+  embla_container: string,
+  embla_slide: string,
+  embla_slide_inner: string,
+  embla_slide_img: string,
+}
 
 export function createClassName(defaultClass: string, classes?: string): string {
   return classes ? `${classes} ${defaultClass}` : defaultClass;
@@ -34,7 +43,7 @@ export function getWindowSize(): IWindowSize | undefined {
   }
 }
 
-export function combineObjects<T extends LabelCarouselSlideTextClassName | LabelCarouselClassName | LabelSocialMedia>(
+export function combineObjects<T extends LabelCarouselClassName | LabelSocialMedia>(
   defaultClass: T,
   classes: T | undefined
 ): T {
@@ -71,7 +80,7 @@ export const useScrollYPosition = () => {
 
 
 export const useWindowWidth = () => {
-  //listens for changes off the width of the browser window
+  //listens for changes of the width of the browser window
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
   useEffect(() => {
