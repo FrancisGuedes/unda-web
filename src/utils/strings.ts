@@ -1,156 +1,3 @@
-/* export const strings = {
-  header: {
-    navbar: {
-      logo: {
-        id: "#logo",
-        name: "logo",
-        href: "url file"
-      },
-      navlinks: [
-        {
-          home: {
-            id: "#home ou /",
-            name: "home"
-          }
-        },
-        {
-          stay_with_us: {
-            id: "#stay-with-us",
-            name: "name"
-          }
-        },
-        {
-          about: {
-            id: "#about",
-            name: "about"
-          }
-        },
-        {
-          contact: {
-            id: "#contact",
-            name: "contact"
-          }
-        },
-        {
-          reviews: {
-            id: "#reviews",
-            name: "reviews"
-          }
-        }
-      ]
-    }
-  },
-  home: {
-    id: "#home",
-    name: "home",
-    carousel: {
-      id: "carouselId",
-      name: "carousel",
-      image: [{
-        id: "imageId",
-        name: "image ${id}",
-        href: "url file",
-        alt: "description"
-      }]
-    },
-    button: {
-      id: "buttonId",
-      name: "button",
-      href: "url",
-      alt: "description",
-      onClick: "event"
-    }
-  },
-  stay_with_us: {
-    id: "#stay-with-us",
-    name: "stay with us",
-    content: {
-      text_description: {
-        id: "text_description",
-        name: "text description",
-        content: {
-          title: "lorem",
-          first_description: "lorem",
-          second_description: "lorem"
-        }
-      },
-      image_section: {
-        id: "image-section-id",
-        name: "image section",
-        title: "lorem",
-        image: [{
-          id: "imageId",
-          name: "image ${id}",
-          href: "url file",
-          alt: "description"
-        }]
-      }
-    }
-  },
-  about: {
-    id: "#about",
-    name: "about",
-    content: {
-      first_paragraph: "lorem",
-      second_paragraph: "lorem",
-      utilities: {
-        title: "lorem",
-        elements: [
-          {name: "lorem"}
-        ]
-      }
-    },
-    image: {
-      id: "imageId",
-      name: "image ${id}",
-      href: "url file",
-      alt: "description"
-    }
-  },
-  reviews: {
-    id: "#reviews",
-    name: "reviews",
-    card: [{
-      id: "cardId",
-      name: "card",
-      info: {
-        id: "infoId",
-        name: "info",
-        reviewer: "person name",
-        stars: "1-5",
-        date: {
-          month: "month",
-          year: "yyyy",
-          source: "domain.extension"
-        },
-        description: "lorem"
-      }
-      }]
-  },
-  contact: {
-    id: "#contact",
-    name: "contact",
-    type: [{
-      id: "typeId",
-      name: "email adress",
-      description: "example@example.com"
-    }]
-  },
-  footer: {
-    id: "#footer",
-    name: "footer",
-    description: "Villa Martins c 2022",
-    crafted_by: {
-      id: "craftedId",
-      name: "crafted by",
-      person: {
-        name: "john doe",
-        href: "url foo bar"
-      }
-    }
-  } 
-}; */
-
 export const functionalityAlias = {
   component: {
     appLink: {
@@ -198,6 +45,25 @@ export const functionalityAlias = {
       defaultClassName: "app-paragraph",
       lang: 'en'
     },
+    appTitle: {
+      defaultClassName: "app-title",
+      lang: 'en'
+    },
+    appButtonButton: {
+      defaultClassName: "app-button-button"
+    },
+    appButtonImage: {
+      defaultClassName: "app-button-image"
+    },
+    appTitleImageWrapper: {
+      defaultClassName: "app-title-image_wrapper"
+    },
+    appTitleImageTitle: {
+      defaultClassName: "app-title-image_title"
+    },
+    appTitleImageImage: {
+      defaultClassName: "app-title-image_image"
+    },
     starRating: {
       defaultClassName: "star-rating",
       faSolidStar: 'fa-solid star',
@@ -238,7 +104,7 @@ export const strings = {
 }
 
 export const indexHtmlStrings = {
-  title: "Villa Martins",
+  title: "UNDA Associação",
   lang: 'en',
   charSet: "UTF-8",
   name: "viewport",
@@ -246,7 +112,7 @@ export const indexHtmlStrings = {
   rel: "manifest",
   href: "/manifest.json",
   themeColor: "#ffeee3",
-  description: "Villa Martins is a stunning villa located in the heart of Tras-os-Montes. It was designed to offer comfort and tranquility, with all modern amenities to ensure you have an unforgettable holiday.",
+  description: "UNDA is a community of creatives, designers, and thinkers who believe we can change the world by turning ideas into reality..",
   descriptionName: "description",
   relAppleTouchIcon: "apple-touch-icon",
   hrefAppleTouchIcon: '/vm-logo.png',

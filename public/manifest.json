@@ -1,6 +1,6 @@
 {
-  "short_name": "Villa Martins",
-  "name": "Villa Martins - Local Accommodation",
+  "short_name": "UNDA Consultoria",
+  "name": "UNDA - Connecting people through groundbreaking experiences",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "vm-logo.png",
+      "src": "u-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "vm-logo.png",
+      "src": "u-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -23,5 +23,5 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#ffeee3",
-  "description": "Villa Martins is a stunning villa located in the heart of Tras-os-Montes. It was designed to offer comfort and tranquility, with all modern amenities to ensure you have an unforgettable holiday."
+  "description": "We're UNDA: a creative team that combines bold vision with strategic thinking to deliver exceptional creative projects. Our focus is on driving real change in your business"
 }
