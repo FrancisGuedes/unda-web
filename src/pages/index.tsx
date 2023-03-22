@@ -1,25 +1,32 @@
 import type { NextPage, GetStaticProps } from 'next';
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import { IAboutFields, IContactFields, IHomeFields, INavbarFields, IReviewFields, IStayWithUsFields, IFooterFields } from '../../@types/generated/contentful';
+import { RefObject, useCallback, useRef, useState } from 'react';
+import { IAboutSectionFields, ILayoutFields, IContactSectionFields, IHeroSectionFields, INavbarFields, IPortfolioSectionFields, ISolutionsFields, ISocialMediaFields, IFooterFields } from '../../@types/generated/contentful';
 
 import ContentService from '../utils/contentful/content-service';
 import { MainContentTypeId } from '../utils/contentful/content-type-id';
-import Layout from '../components/layout/layout';
+
 import Navbar from '../components/navbar/navbar';
+import { SocialMediaModule } from '../lib/interfaces/contentful/isocialMedia';
+import Layout from '../components/layout/layout';
+import { LayoutModule } from '../lib/interfaces/contentful/ilayout';
+import BackgroundImage from '../components/layout/backgroundImage';
 import Home from '../templates/home/home';
-import StayWithUs from '../templates/stay-with-us/stayWithUs';
 import About from '../templates/about/about';
-import Review from '../templates/reviews/review';
-import Footer from '../templates/footer/footer';
+import Solutions from '../templates/solutions/solutions';
+import Portfolio from '../templates/portfolio/portfolio';
 import Contact from '../templates/contact/contact';
+import SocialMediaView from '../templates/social-media-view/socialMediaView';
+import Footer from '../templates/footer/footer';
 
 interface IIndexProps {
   navbarSectionProps: INavbarFields[];
-  homeSectionProps: IHomeFields[];
-  stayWithUsSectionProps: IStayWithUsFields[];
-  aboutSectionProps: IAboutFields[];
-  reviewSectionProps: IReviewFields[];
-  contactSectionProps: IContactFields[];
+  layoutSectionProps: ILayoutFields[],
+  heroSectionProps: IHeroSectionFields[],
+  aboutSectionProps: IAboutSectionFields[],
+  solutionsSectionProps: ISolutionsFields[],
+  portfolioSectionProps: IPortfolioSectionFields[],
+  contactSectionProps: IContactSectionFields[],
+  socialMediaSectionProps: ISocialMediaFields[],
   footerSectionProps: IFooterFields[];
 }
 
@@ -28,75 +35,89 @@ export type NavSectionRefs = {
 }
 
 const Index: NextPage<IIndexProps> = ({
-  navbarSectionProps, 
-  homeSectionProps,
-  stayWithUsSectionProps,
+  navbarSectionProps,
+  layoutSectionProps,
+  heroSectionProps,
   aboutSectionProps,
-  reviewSectionProps,
+  solutionsSectionProps,
+  portfolioSectionProps,
   contactSectionProps,
+  socialMediaSectionProps,
   footerSectionProps
 }: IIndexProps) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [navbarDataFetched, setNavbarDataFetched] = useState<INavbarFields[]>(navbarSectionProps);
 
-  const handleModal = useCallback(() => setModalOpen((modalOpen: boolean) => !modalOpen), []);
-
-  const homeRef = useRef() as RefObject<number>;
-  const stayWithUsRef = useRef() as RefObject<number>;
+  const heroRef = useRef() as RefObject<number>;
   const aboutRef = useRef() as RefObject<number>;
-  const reviewRef = useRef() as RefObject<number>;
+  const solutionsRef = useRef() as RefObject<number>;
+  const portfolioRef = useRef() as RefObject<number>;
   const contactRef = useRef() as RefObject<number>;
 
-  const validateNavbarData = () => {
-    console.info("START validateNavbarData", navbarDataFetched);
-    if(typeof navbarSectionProps != 'undefined') {
-      setNavbarDataFetched(navbarSectionProps);
-    } else {
-      throw new Error("ERROR getting navbar data. It's undefined: ", navbarSectionProps);
-    }
-    console.info("END validateNavbarData", navbarDataFetched);
-  }
-
   const navSectionRefs = [
-    { headerRef: homeRef },
-    { headerRef: stayWithUsRef },
+    { headerRef: heroRef },
     { headerRef: aboutRef },
-    { headerRef: reviewRef },
+    { headerRef: solutionsRef },
+    { headerRef: portfolioRef },
     { headerRef: contactRef },
   ];
 
-  useEffect(() => {
-    if(typeof navbarDataFetched === 'undefined') {
-      validateNavbarData();
-    }
-  }, [navbarDataFetched]);
+  const handleModal = useCallback(() => setModalOpen((modalOpen: boolean) => !modalOpen), []);
+
+  const socialMediaData: SocialMediaModule.ISocialMediaContent[] = new Map(
+    Object.entries(socialMediaSectionProps))
+    .values()
+    .next().value['socialMediaContent'];
+  
+
+  const layoutFile: LayoutModule.IFile = new Map(
+    Object.entries(layoutSectionProps))
+    .values()
+    .next().value['image'][0]['fields']['media']['fields']['file'];
   
   return (
     <>
       <Navbar
-      navbarSectionProps={navbarSectionProps}
-      contactSectionProps={contactSectionProps}
-      handleModal={handleModal}
-      isModalActive={isModalOpen}
-      navSectionRefs={navSectionRefs} />
-      <Layout>
+        navbarSectionProps={navbarSectionProps}
+        socialMediaData={socialMediaData}
+        handleModal={handleModal}
+        isModalActive={false}
+        navSectionRefs={navSectionRefs} />
+      <BackgroundImage
+        layoutData={layoutFile}
+      >
         <Home
-          homeSectionProps={homeSectionProps}
-          homeRef={homeRef} />
-        <StayWithUs
-          stayWithUsSectionProps={stayWithUsSectionProps}
-          stayWithUsRef={stayWithUsRef} />
+          homeSectionProps={heroSectionProps}
+          homeRef={heroRef} 
+        />
+      </BackgroundImage>
+      <Layout
+      >
         <About
           aboutSectionProps={aboutSectionProps}
-          aboutRef={aboutRef} />
-        <Review
-          reviewSectionProps={reviewSectionProps}
-          reviewRef={reviewRef} />
+          aboutRef={aboutRef} 
+        />
+        <Solutions 
+          solutionsSectionProps={solutionsSectionProps}
+          solutionsRef={solutionsRef}
+        />
+        <Portfolio 
+          portfolioSectionProps={portfolioSectionProps}
+          portfolioRef={portfolioRef}
+        />
       </Layout>
-      <Contact
-        contactSectionProps={contactSectionProps}
-        contactRef={contactRef} />
-      <Footer footerSectionProps={footerSectionProps} />
+      <BackgroundImage
+        layoutData={layoutFile}>
+          <Contact
+            contactSectionProps={contactSectionProps}
+            contactRef={contactRef}
+          />
+      </BackgroundImage>
+      <SocialMediaView 
+        socialMediaData={socialMediaData} 
+      />
+      <Footer 
+        footerSectionProps={footerSectionProps} 
+      />
     </>
   )
 }
@@ -110,24 +131,32 @@ export const getStaticProps: GetStaticProps = async () => {
     await ContentService.instance.getEntriesByType<INavbarFields>(MainContentTypeId.NAVBAR)
   ).map((entry) => entry.fields);
 
-  const homeSectionProps = (
-    await ContentService.instance.getEntriesByType<IHomeFields>(MainContentTypeId.HOME)
+  const layoutSectionProps = (
+    await ContentService.instance.getEntriesByType<ILayoutFields>(MainContentTypeId.LAYOUT)
   ).map((entry) => entry.fields);
 
-  const stayWithUsSectionProps = (
-    await ContentService.instance.getEntriesByType<IStayWithUsFields>(MainContentTypeId.STAY_WITH_US)
+  const heroSectionProps = (
+    await ContentService.instance.getEntriesByType<IHeroSectionFields>(MainContentTypeId.HERO)
   ).map((entry) => entry.fields);
 
   const aboutSectionProps = (
-    await ContentService.instance.getEntriesByType<IAboutFields>(MainContentTypeId.ABOUT)
+    await ContentService.instance.getEntriesByType<IAboutSectionFields>(MainContentTypeId.ABOUT)
   ).map((entry) => entry.fields);
 
-  const reviewSectionProps = (
-    await ContentService.instance.getEntriesByType<IReviewFields>(MainContentTypeId.REVIEW)
+  const solutionsSectionProps = (
+    await ContentService.instance.getEntriesByType<ISolutionsFields>(MainContentTypeId.SOLUTIONS)
+  ).map((entry) => entry.fields);
+
+  const portfolioSectionProps = (
+    await ContentService.instance.getEntriesByType<IPortfolioSectionFields>(MainContentTypeId.PORTFOLIO)
   ).map((entry) => entry.fields);
 
   const contactSectionProps = (
-    await ContentService.instance.getEntriesByType<IContactFields>(MainContentTypeId.CONTACT)
+    await ContentService.instance.getEntriesByType<IContactSectionFields>(MainContentTypeId.CONTACT)
+  ).map((entry) => entry.fields);
+
+  const socialMediaSectionProps = (
+    await ContentService.instance.getEntriesByType<ISocialMediaFields>(MainContentTypeId.SOCIAL_MEDIA)
   ).map((entry) => entry.fields);
 
   const footerSectionProps = (
@@ -138,11 +167,13 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       navbarSectionProps,
-      homeSectionProps,
-      stayWithUsSectionProps,
+      layoutSectionProps,
+      heroSectionProps,
       aboutSectionProps,
-      reviewSectionProps,
+      solutionsSectionProps,
+      portfolioSectionProps,
       contactSectionProps,
+      socialMediaSectionProps,
       footerSectionProps
     },
     revalidate: 1,
