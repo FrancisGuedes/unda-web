@@ -1,6 +1,9 @@
 import SocialMedia from '../../components/social-media/socialMedia';
 import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
+import { useWindowWidth } from '../../utils/utility';
+
 import './socialMediaView.module.scss';
+import bigDesktopSizeWindow from './socialMediaView.module.scss';
 
 interface SocialMediaViewProps {
   socialMediaData: SocialMediaModule.ISocialMediaContent[];
@@ -9,9 +12,8 @@ interface SocialMediaViewProps {
 const SocialMediaView = ({
   socialMediaData
 }: SocialMediaViewProps) => {
-
-  console.log('socialMediaData: ', socialMediaData)
-
+  const windowWidthBigDesktop: number = +bigDesktopSizeWindow.bigDesktopSizeWindow.slice(0,4);
+  const windowWidth: number = useWindowWidth();
 
   return (
     <>
@@ -21,9 +23,9 @@ const SocialMediaView = ({
           isTitleOfContactActive
           isSvgActive
           isDescriptionSvgActive 
-          svgHeight={0} 
-          svgWidth={0}
-        /> 
+          svgHeight={windowWidth >= windowWidthBigDesktop ? 33 : 22} 
+          svgWidth={windowWidth >= windowWidthBigDesktop ? 33 : 22}
+        />
       </div>
     </>
   );

@@ -36,9 +36,9 @@ body {
 main {
   padding: vars.$paddingDefault;
   min-height: 100vh;
-  @include mediaQueries.minWidthBigDesktops {
+  /* @include mediaQueries.minWidthBigDesktops {
     padding: 80px 15% 5vh 15%;
-  }
+  } */
   @include mediaQueries.tablet {
     padding: 80px 5vw 5vh 6.5vw;
   };

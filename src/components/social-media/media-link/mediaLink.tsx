@@ -51,9 +51,9 @@ const MediaLink = ({
         }
         { isDescriptionSvgActive && isSvgActive 
           ? 
-            <>&nbsp;{linkFields.name}</> 
+            <>&nbsp;&nbsp;{linkFields.title}</> 
           : 
-            isDescriptionSvgActive ? <>{linkFields.name}</> : null 
+            isDescriptionSvgActive ? <>{linkFields.title}</> : null 
         }
       </AppLink>
     </>

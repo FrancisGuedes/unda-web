@@ -58,7 +58,8 @@ const MobileMenu = ({
               {labelMobileSocial.title}
             </h3>
             <div className="social-list">
-              <SocialMedia 
+              <SocialMedia
+                key={[1,2,3,4,5].map(e=> e).toString()}
                 socialMediaProps={socialMediaContact} 
                 isTitleOfContactActive={false} 
                 isSvgActive 
