@@ -1,5 +1,4 @@
 import { IFooterFields } from '../../../@types/generated/contentful';
-import AppButton from '../../components/app-button/appButton';
 import AppLink from '../../components/app-link/appLink';
 import { FooterModule } from '../../lib/interfaces/contentful/ifooter';
 import './footer.module.scss';

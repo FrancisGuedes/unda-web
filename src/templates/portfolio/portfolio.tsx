@@ -3,11 +3,11 @@ import AppTitleImage from '../../components/app-title-image/appTitleImage';
 import { PortfolioModule } from '../../lib/interfaces/contentful/iportfolio';
 import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
 
-import KeenSlider, { useKeenSlider } from 'keen-slider/react';
+import { useKeenSlider } from 'keen-slider/react';
 
 import "keen-slider/keen-slider.min.css";
 import './portfolio.module.scss';
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppParagraph from '../../components/app-paragraph/appParagraph';
 import CarouselDots from '../../components/carousel/dots/carouselDots';
 

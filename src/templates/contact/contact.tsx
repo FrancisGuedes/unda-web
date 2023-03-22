@@ -1,10 +1,8 @@
 import { IContactSectionFields } from '../../../@types/generated/contentful';
 import AppButtonImage from '../../components/app-button-image/appButtonImage';
 import AppParagraph from '../../components/app-paragraph/appParagraph';
-import SocialMedia from '../../components/social-media/socialMedia';
 
 import { ContactModule } from '../../lib/interfaces/contentful/icontact';
-import { SocialMediaModule } from '../../lib/interfaces/contentful/isocialMedia';
 import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
 
 import './contact.module.scss';
