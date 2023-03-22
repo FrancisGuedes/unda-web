@@ -104,7 +104,7 @@ export const strings = {
 }
 
 export const indexHtmlStrings = {
-  title: "UNDA Associação",
+  title: "UNDA Consultoria",
   lang: 'en',
   charSet: "UTF-8",
   name: "viewport",
