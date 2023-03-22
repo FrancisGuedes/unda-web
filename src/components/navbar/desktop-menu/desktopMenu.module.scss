@@ -11,7 +11,7 @@
     display: none
   };
   @include mediaQueries.minWidthBigDesktops {
-    width: 650px;
+    width: 720px;
   };
   .navlink-content {
     display: flex;
@@ -19,6 +19,9 @@
     align-content: center;
     li {
       font-weight: fonts.$font-medium;
+      @include mediaQueries.minWidthBigDesktops {
+        font-size: 20px;
+      };
     }
   }
 }

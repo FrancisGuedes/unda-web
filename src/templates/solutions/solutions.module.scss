@@ -24,6 +24,9 @@
       @include mediaQueries.desktop {
         width: 100%;
       };
+      @include mediaQueries.minWidthBigDesktops {
+        max-width: 880px;
+      };
       .solutions-text-title {
         .solutions-app-title-image_wrapper {
           width: 300px;
@@ -62,11 +65,24 @@
       height: 100%;
       @include mediaQueries.desktop {
         width: 100%;
+        position: relative;
       };
+      @include mediaQueries.maxWidthMobile {
+        height: 530px;
+      }
       .solutions-image {
         height: 100%;
         width: 100%;
-        min-width: 450px;
+        min-width: 354px;
+        @include mediaQueries.desktop {
+          min-height: 450px;
+        };
+        @include mediaQueries.maxWidthMobile {
+          object-fit: cover;
+          height: 100%;
+          // height: auto; REMOVE this line for normal ratio responsiveness
+          position: absolute;
+        };
       }
     }
   }

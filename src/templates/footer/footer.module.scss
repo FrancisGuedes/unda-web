@@ -12,9 +12,6 @@
   justify-content: flex-start;
   background-color: #dcdcdc;
   padding: 0 5vw 0 4.5vw;
-  @include mediaQueries.minWidthBigDesktops {
-    padding: 0 15% 0 15%;
-  }
   @include mediaQueries.tablet {
     padding: 0 5vw 0 6.5vw;
   };

@@ -4,6 +4,10 @@
 .app-title-image_wrapper {
   position: relative;
   width: 248px;
+  @include mediaQueries.minWidthBigDesktops {
+    width: 260px;
+    margin-bottom: 60px;
+  };
   .app-title-image_image {
   }
   .app-title-image_title {
@@ -11,5 +15,8 @@
     top: 63px;
     left: 107px;
     font-size: 27px;
+    @include mediaQueries.minWidthBigDesktops {
+      font-size: 31px;
+    };
   }
 }

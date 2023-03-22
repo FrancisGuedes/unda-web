@@ -62,6 +62,10 @@
           @include mediaQueries.desktop {
             width: 90%;
           };
+          @include mediaQueries.minWidthBigDesktops {
+            width: 31vw;
+            margin-right: 40px;
+          };
           .portfolio-card-image_wrapper {
             .card {
               display: flex;
@@ -70,7 +74,6 @@
               flex-wrap: nowrap;
               justify-content: space-between;
             }
-    
             .image-wrapper {
               position: relative;
               width: 100%;
@@ -78,7 +81,6 @@
               overflow: hidden;
               margin-bottom: 10px;
             }
-    
             img {
               position: absolute;
               width: 100%;
@@ -101,13 +103,20 @@
             .portfolio-card-description_content {
               .portfolio-card-description_content-text {
                 line-height: 35px;
+                @include mediaQueries.minWidthBigDesktops {
+                  line-height: 42px;
+                  font-size: 27px;
+                };
               }
             }
   
           }
           .portfolio-card-footer_wrapper {
             .portfolio-card-footer_content {
-  
+              @include mediaQueries.minWidthBigDesktops {
+                font-size: 27px;
+                line-height: 35px;
+              };
             }
           }
         }
@@ -116,6 +125,10 @@
       .dots-wrapper {
         @include mediaQueries.minWidthdesktop {
           display: none;
+        }
+        @include mediaQueries.maxWidthMobile {
+          position: absolute;
+          top: 335px;
         }
       }
     }

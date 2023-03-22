@@ -2,6 +2,10 @@
 @use '../../styles/core/colors';
 @use '../../styles/core/vars';
 
+:export {
+  bigDesktopSizeWindow: 1800px;
+}
+
 .social-media-view_wrapper {
   display: flex;
   flex-wrap: wrap;
