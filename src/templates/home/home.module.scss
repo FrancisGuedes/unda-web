@@ -15,10 +15,22 @@
     align-items: center;
     .home-text-wrapper {
       margin: 60px 0;
+      width: 42%;
       @include mediaQueries.desktop {
-        width: 100%;
+        width: 470px;
       };
+      @include mediaQueries.maxWidthMobile {
+        height: 270px;
+        position: relative;
+        margin-bottom: 0;
+      }
       .home-text-content {
+        //width: 100%;
+        //width: 470px;
+        line-height: 50px;
+        @include mediaQueries.maxWidthMobile {
+          width: 450px;
+        }
       }
       .home-button-image {
       }

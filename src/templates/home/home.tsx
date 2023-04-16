@@ -22,14 +22,30 @@ const Home: NextPage<IHomeProps> = ({
     Object.entries(homeSectionProps))
     .values()
     .next().value;
-  
+  console.log("homeSectionData: ", homeSectionData)
   const homeTitle: JSX.Element[] = homeSectionData['title'].map((text: HeroModule.ITitle, index: number) => {
-    const titleLabel = text['fields']['text']['content'][0]['content'][0].value;
+    //const titleLabel = text['fields']['text']['content'][0]['content'][0].value;
+    let titleParagraph;
+    const titleContent = text['fields']['text']?.['content'];
+    if(titleContent !== null && titleContent !== undefined) {
+      titleParagraph = titleContent.map((titleContentArray: HeroModule.IContent) => {
+        let titleLine = titleContentArray.content.map((title: HeroModule.IContent2) => {
+          return title.value.concat(" ");
+        }).toString();
+
+        return (
+          <> 
+            {titleLine}
+          </>
+        );
+      })
+    }
+    
     return (
       <> 
         <div key={index}>
           <AppTitle>
-            {titleLabel}
+            {titleParagraph}
           </AppTitle>
         </div>
       </>

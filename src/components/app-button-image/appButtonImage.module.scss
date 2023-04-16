@@ -1,9 +1,14 @@
 @use '../../styles/core/colors';
 @use '../../styles/core/rules';
+@use '../../styles/core/mediaQueries';
 
 .home-button-wrapper {
   position: relative;
   width: 136px;
+  @include mediaQueries.maxWidthMobile {
+    bottom: 0;
+    position: absolute;
+  }
   .app-button-image {
     cursor: pointer;
   }
