@@ -20,12 +20,12 @@
     align-items: flex-start;
     .solutions-text-wrapper {
       margin: 60px 0;
-      max-width: 860px;
+      max-width: 790px;
       @include mediaQueries.desktop {
         width: 100%;
       };
       @include mediaQueries.minWidthBigDesktops {
-        max-width: 880px;
+        max-width: 100%;
       };
       .solutions-text-title {
         .solutions-app-title-image_wrapper {
@@ -45,10 +45,16 @@
           @include mediaQueries.desktop {
             font-size: 20px;
           };
+          @include mediaQueries.minWidthBigDesktops {
+            line-height: 50px;
+          };
         }
         .solutions-text_bullet-points_wrapper {
           list-style-type: disc;
           margin: 40px;
+          @include mediaQueries.minWidthBigDesktops {
+            line-height: 80px;
+          };
           .solutions-text-paragraph_bullet-point { 
             margin: 15px 0;
             font-size: 1.5vw;
@@ -61,7 +67,7 @@
     }
     .solutions-image-wrapper {
       margin: 60px 0;
-      width: 40%;
+      width: 35%;
       height: 100%;
       @include mediaQueries.desktop {
         width: 100%;
