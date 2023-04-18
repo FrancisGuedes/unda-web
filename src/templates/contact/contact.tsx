@@ -60,7 +60,8 @@ const Contact = ({
               classNameButton="contact-button-button"
               ariaLabel={''} 
               href={`mailto:${contactEmail}`}
-              buttonLabel={buttonDataFields.title}       
+              buttonLabel={buttonDataFields.title}
+              classAppButtonImageWrapper={"contact-app-button-image"}       
             />
         </div>
       </section>

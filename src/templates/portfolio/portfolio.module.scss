@@ -26,6 +26,9 @@
       @include mediaQueries.desktop {
         width: 100%;
       };
+      @include mediaQueries.maxWidthMobile {
+        margin: 0;
+      }
         .portfolio-app-title-image_wrapper {
           width: 229px;
           .portfolio-app-title-image_title {

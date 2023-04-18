@@ -29,7 +29,7 @@
         //width: 470px;
         line-height: 50px;
         @include mediaQueries.maxWidthMobile {
-          width: 450px;
+          width: 100%;
         }
       }
       .home-button-image {

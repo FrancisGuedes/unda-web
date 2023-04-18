@@ -24,6 +24,9 @@
     align-items: flex-start;
     .about-text-wrapper {
       margin: 60px 0;
+      @include mediaQueries.maxWidthMobile {
+        margin: 0;
+      }
       @include mediaQueries.desktop {
         width: 100%;
       };
