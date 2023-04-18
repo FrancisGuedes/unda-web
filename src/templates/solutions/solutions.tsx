@@ -36,12 +36,14 @@ const Solutions = ({
     let bulletPoint: string = text['fields']['text']['content'][0]['content'].map((element: SolutionsModule.IContent4) => element['content'][0]['content'][0].value).toString();
     return (
       <> 
-        <li key={index}>
-          <AppParagraph
-            className='solutions-text-paragraph_bullet-point'
-          >
-            {bulletPoint}
-          </AppParagraph>
+        <li key={index} className='rainbow-wrapper'>
+          <div className='rainbow'>
+            <AppParagraph
+              className='solutions-text-paragraph_bullet-point'
+            >
+              {bulletPoint}
+            </AppParagraph>
+          </div>
         </li>
       </>
     );

@@ -20,13 +20,16 @@
     align-items: flex-start;
     .solutions-text-wrapper {
       margin: 60px 0;
-      max-width: 790px;
+      width:62.7%;
       @include mediaQueries.desktop {
         width: 100%;
       };
       @include mediaQueries.minWidthBigDesktops {
         max-width: 100%;
       };
+      @include mediaQueries.maxWidthMobile {
+        margin: 0;
+      }
       .solutions-text-title {
         .solutions-app-title-image_wrapper {
           width: 300px;
@@ -50,14 +53,19 @@
           };
         }
         .solutions-text_bullet-points_wrapper {
-          list-style-type: disc;
-          margin: 40px;
+          //list-style-type: disc;
+          margin: 45px 15px;
+          line-height: 35px;
           @include mediaQueries.minWidthBigDesktops {
             line-height: 80px;
           };
+          @include mediaQueries.maxWidthMobile {
+            margin: 45px 0;
+          }
           .solutions-text-paragraph_bullet-point { 
             margin: 15px 0;
             font-size: 1.5vw;
+            line-height: 35px;
             @include mediaQueries.desktop {
               font-size: 20px;
             };           
@@ -94,3 +102,47 @@
   }
 }
 
+.rainbow-wrapper {
+  margin: 34px 5px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px;
+  @include mediaQueries.desktop {
+    height: 12vh;
+    min-height: 95px;
+  };
+  @include mediaQueries.maxWidthMobile {
+    margin: 34px 0;
+  }
+  .rainbow {
+    position: absolute;
+    z-index: -9;
+    height: 100%;
+    width: 100%;
+    transform: rotate(0deg);
+    overflow: hidden;
+    background: linear-gradient(to right, #fff 20%, #fff 40%, rgb(142 142 142 / 48%) 50%, rgb(169 169 169 / 48%) 55%, #ffffff 70%, #fff 100%);
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  
+    @include mediaQueries.desktop {
+      justify-content: flex-start;
+      padding-left: 3%;
+    };
+    @include mediaQueries.maxWidthMobile {
+      padding: 0 40px;
+    }
+  }
+}
+
+/*Begin shinner code*/
+
+@keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
