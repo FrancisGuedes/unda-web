@@ -31,8 +31,16 @@
       }
         .portfolio-app-title-image_wrapper {
           width: 229px;
+          @include mediaQueries.maxWidthMobile {
+            width: 171px
+          }
           .portfolio-app-title-image_title {
             top: 92px;
+            left: 115px;
+            @include mediaQueries.maxWidthMobile {
+              top: 66px;
+              left: 101px;
+            }
         }
       }
     }
@@ -83,6 +91,9 @@
               height: 320px;
               overflow: hidden;
               margin-bottom: 10px;
+              @include mediaQueries.maxWidthMobile {
+                height: 225px;
+              };
             }
             img {
               position: absolute;
@@ -110,9 +121,11 @@
                   line-height: 42px;
                   font-size: 27px;
                 };
+                @include mediaQueries.maxWidthMobile {
+                  font-size: fonts.$font-size-content-mobile;
+                }
               }
             }
-  
           }
           .portfolio-card-footer_wrapper {
             .portfolio-card-footer_content {
@@ -120,6 +133,9 @@
                 font-size: 27px;
                 line-height: 35px;
               };
+              @include mediaQueries.maxWidthMobile {
+                font-size: fonts.$font-size-content-mobile;
+              }
             }
           }
         }
@@ -131,7 +147,7 @@
         }
         @include mediaQueries.maxWidthMobile {
           position: absolute;
-          top: 335px;
+          top: 244px;
         }
       }
     }
