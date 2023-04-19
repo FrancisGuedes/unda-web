@@ -104,7 +104,7 @@ export const strings = {
 }
 
 export const indexHtmlStrings = {
-  title: "UNDA Consultoria",
+  title: "UNDA - Creative Consultancy",
   lang: 'en',
   charSet: "UTF-8",
   name: "viewport",
@@ -112,7 +112,7 @@ export const indexHtmlStrings = {
   rel: "manifest",
   href: "/manifest.json",
   themeColor: "#ffeee3",
-  description: "UNDA is a community of creatives, designers, and thinkers who believe we can change the world by turning ideas into reality..",
+  description: "We're UNDA: a creative team that combines bold vision with strategic thinking to deliver exceptional creative projects. Our focus is on driving real change in your business",
   descriptionName: "description",
   relAppleTouchIcon: "apple-touch-icon",
   hrefAppleTouchIcon: '/vm-logo.png',
