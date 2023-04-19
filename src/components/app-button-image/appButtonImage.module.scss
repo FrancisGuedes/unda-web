@@ -8,6 +8,7 @@
   @include mediaQueries.maxWidthMobile {
     bottom: 0;
     position: absolute;
+    width: 115px;
   }
   .app-button-image {
     cursor: pointer;
@@ -15,6 +16,9 @@
   .app-button-button {
     @include rules.center;
     background-color: colors.$black;
-    width: 80%;
+    width: 77%;
+    @include mediaQueries.maxWidthMobile {
+      font-size: 11px;
+    }
   }
 }

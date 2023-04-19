@@ -3,12 +3,12 @@
 @use '../../styles/core/fonts';
 
 .portfolio-wrapper {
-  align-items: center;
+  //display: grid;
+  //align-items: center;
+  //align-content: center;
   padding-bottom: 30px;
   padding-top: 30px;
-  display: grid;
   height: 100vh;
-  align-content: center;
   @include mediaQueries.desktop {
     height: 100%;
   };

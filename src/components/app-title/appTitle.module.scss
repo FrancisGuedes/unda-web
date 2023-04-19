@@ -6,4 +6,7 @@
   @include mediaQueries.desktop {
     font-size: 30px;
   };
+  @include mediaQueries.maxWidthMobile {
+    font-size: 22px;
+  };
 }

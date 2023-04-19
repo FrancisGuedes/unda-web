@@ -73,6 +73,9 @@ h1 {
   @include mediaQueries.desktop {
     font-size: 26px;
   };
+  @include mediaQueries.maxWidthMobile {
+    font-size: 22px;
+  };
 }
 
 h3, h5 {
