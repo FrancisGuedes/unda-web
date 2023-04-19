@@ -39,7 +39,10 @@
           //width: 300px;
           .solutions-app-title-image_title {
             top: 43px;
-            left: 114px;
+            left: 130px;
+            @include mediaQueries.minWidthBigDesktops {
+              left: 154px;
+            };
             @include mediaQueries.desktop {
               left: 161px;
               top: 46px;

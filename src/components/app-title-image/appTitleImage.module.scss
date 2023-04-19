@@ -16,10 +16,11 @@
   .app-title-image_title {
     @include rules.center;
     top: 63px;
-    left: 107px;
+    left: 126px;
     width: 12.4vw;
     @include mediaQueries.minWidthBigDesktops {
       font-size: 31px;
+      left: 150px;
     };
     @include mediaQueries.desktop {
       top: 62px;

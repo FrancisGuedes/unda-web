@@ -36,7 +36,10 @@
           }
           .portfolio-app-title-image_title {
             top: 92px;
-            left: 115px;
+            left: 130px;
+            @include mediaQueries.minWidthBigDesktops {
+              left: 154px;
+            };
             @include mediaQueries.desktop {
               left: 151px;
             }
