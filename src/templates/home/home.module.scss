@@ -49,7 +49,7 @@
         position: relative;
       };
       @include mediaQueries.maxWidthMobile {
-        height: 400px;
+        height: 280px;
       }
       .home-image {
         height: 100%;

@@ -60,7 +60,7 @@
         position: relative;
       };
       @include mediaQueries.maxWidthMobile {
-        height: 400px;
+        height: 280px;
       }
       .about-image {
         height: 100%;

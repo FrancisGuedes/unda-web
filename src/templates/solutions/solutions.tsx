@@ -3,6 +3,7 @@ import AppParagraph from '../../components/app-paragraph/appParagraph';
 import { SolutionsModule } from '../../lib/interfaces/contentful/isolutions';
 import { ISolutionsFields } from '../../../@types/generated/contentful';
 import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
+import { useWindowWidth } from '../../utils/utility';
 
 import './solutions.module.scss';
 
@@ -49,15 +50,26 @@ const Solutions = ({
     );
   })
 
+  const windowWidth: number = useWindowWidth();
+
   const solutionsTextParagraphTitle: JSX.Element[] = solutionsText.map((phrase: SolutionsModule.IContent, index: number) => {
     let linePhrase: string = phrase['content'].map(line => line.value).toString();
+    const windowWidthMobileDesktop: number = 667;
+    let splittedLinePhrase: string[] = linePhrase.split('.');
+
     return (
       <> 
         <div key={index}>
           <AppParagraph
             className='solutions-text-paragraph_title'
           >
-            {linePhrase}
+            {
+              windowWidth >= windowWidthMobileDesktop ? (linePhrase)  :  (
+                <>
+                  {splittedLinePhrase[0]}. <br/><br/> {splittedLinePhrase[1]}
+                </>
+              )
+            }
           </AppParagraph>
         </div>
       </>
