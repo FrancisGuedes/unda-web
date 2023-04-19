@@ -37,6 +37,9 @@
           .portfolio-app-title-image_title {
             top: 92px;
             left: 115px;
+            @include mediaQueries.desktop {
+              left: 151px;
+            }
             @include mediaQueries.maxWidthMobile {
               top: 66px;
               left: 101px;

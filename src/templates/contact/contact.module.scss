@@ -1,6 +1,7 @@
 @use '../../styles/core/mediaQueries';
 @use '../../styles/core/colors';
 @use '../../styles/core/vars';
+@use '../../styles/core/fonts';
 
 .contact-wrapper {
   //background-color: colors.$footer;
@@ -37,6 +38,9 @@
         font-size: 2.1vw;
         margin-bottom: 70px;
       };
+      @include mediaQueries.maxWidthMobile {
+        font-size: fonts.$font-size-header-mobile;
+      }
     }
     .contact-button-image {
     }
