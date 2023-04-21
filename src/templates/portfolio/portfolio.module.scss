@@ -82,6 +82,7 @@
           @include mediaQueries.minWidthBigDesktops {
             width: 31vw;
             margin-right: 40px;
+            max-height: 100%;
           };
           .portfolio-card-image_wrapper {
             .card {
@@ -99,6 +100,9 @@
               margin-bottom: 10px;
               @include mediaQueries.maxWidthMobile {
                 height: 225px;
+              };
+              @include mediaQueries.minWidthBigDesktops {
+                height: 400px;
               };
             }
             img {
