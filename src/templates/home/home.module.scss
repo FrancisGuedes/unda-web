@@ -6,6 +6,7 @@
   align-items: center;
   @include mediaQueries.maxWidthMobile {
     height: 100vh;
+    margin-top: 10px;
   }
   .home-content {
     display: flex;
@@ -24,7 +25,7 @@
         min-height: 220px;
         position: relative;
         margin-bottom: 0;
-        margin: 25px 0;
+        margin: 22px 0;
         width: 100%;
       }
       .home-text-content {
@@ -51,7 +52,7 @@
       };
       @include mediaQueries.maxWidthMobile {
         height: 280px;
-        margin: 22px 0;
+        margin: 24px 0;
       }
       .home-image {
         height: 100%;
