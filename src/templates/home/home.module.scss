@@ -21,10 +21,10 @@
         width: 470px;
       };
       @include mediaQueries.maxWidthMobile {
-        min-height: 255px;
+        min-height: 220px;
         position: relative;
         margin-bottom: 0;
-        margin: 0 0 20px 0;
+        margin: 25px 0;
         width: 100%;
       }
       .home-text-content {
