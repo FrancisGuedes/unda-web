@@ -93,7 +93,8 @@
             max-height: 100%;
           };
           @include mediaQueries.maxWidthMobile {
-            width: 45vw;
+            //width: 45vw; use if you see buggin again -.-
+            width: 100%; 
           };
           .portfolio-card-image_wrapper {
             .card {
