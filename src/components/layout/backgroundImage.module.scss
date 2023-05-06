@@ -6,7 +6,6 @@
   background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)), var(--imageUrl);
   background-size: cover;
   background-position: center;
-  //height: 100vh;
   z-index: -1;
   padding: vars.$paddingDefault;
   display: flex;
@@ -14,12 +13,10 @@
   @include mediaQueries.desktop {
     //height: 100%;
   };
+  @include mediaQueries.maxWidthMobile {
+    //height: 100vh;
+  }
   .content-section {
     width: 100%;
   }
 }
-
-.content-section-bg {
-  
-}
-

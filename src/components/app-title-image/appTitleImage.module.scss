@@ -9,7 +9,7 @@
     margin-bottom: 60px;
   };
   @include mediaQueries.maxWidthMobile {
-    width: 184px;
+    width: 170px;
   };
   .app-title-image_image {
   }
@@ -28,7 +28,7 @@
       width: 100%;
     };
     @include mediaQueries.maxWidthMobile {
-      top: 50px;
+      top: 44px;
       left: 105px;
       width: 150px;
     };

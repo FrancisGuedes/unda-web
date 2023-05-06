@@ -68,7 +68,6 @@ p {
 
 h1 {
   font-size: 36px;
-  letter-spacing: 2px;
   font-weight: fonts.$font-light;
   @include mediaQueries.desktop {
     font-size: 26px;

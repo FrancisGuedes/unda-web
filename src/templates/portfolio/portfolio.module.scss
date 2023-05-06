@@ -9,9 +9,14 @@
   padding-bottom: 30px;
   padding-top: 30px;
   height: 100vh;
+  min-height: 850px;
   @include mediaQueries.desktop {
     height: 100%;
   };
+  @include mediaQueries.maxWidthMobile {
+    min-height: 700px;
+    height: 710px;
+  }
   .portfolio-content {
     display: flex;
     flex-direction: row;
@@ -32,7 +37,7 @@
         .portfolio-app-title-image_wrapper {
           width: 229px;
           @include mediaQueries.maxWidthMobile {
-            width: 171px
+            width: 145px;
           }
           .portfolio-app-title-image_title {
             top: 92px;
@@ -44,8 +49,8 @@
               left: 151px;
             }
             @include mediaQueries.maxWidthMobile {
-              top: 66px;
-              left: 101px;
+              top: 54px;
+              left: 97px;
             }
         }
       }
@@ -60,6 +65,9 @@
       align-items: center;
       @include mediaQueries.desktop {
         width: 100%;
+      };
+      @include mediaQueries.maxWidthMobile {
+        margin: 50px 0;
       };
       .carousel-item {
         min-height: 450px;
@@ -99,7 +107,7 @@
               overflow: hidden;
               margin-bottom: 10px;
               @include mediaQueries.maxWidthMobile {
-                height: 225px;
+                height: 210px;
               };
               @include mediaQueries.minWidthBigDesktops {
                 height: 400px;
@@ -124,6 +132,9 @@
           }
           .portfolio-card-description_wrapper {
             margin: 45px 0;
+            @include mediaQueries.maxWidthMobile {
+              margin: 45px 0 25px 0;
+            }
             .portfolio-card-description_content {
               .portfolio-card-description_content-text {
                 line-height: 35px;
@@ -132,7 +143,10 @@
                   font-size: 27px;
                 };
                 @include mediaQueries.maxWidthMobile {
-                  font-size: fonts.$font-size-content-mobile;
+                  //font-size: fonts.$font-size-content-mobile;
+                  //line-height: 30px;
+                  font-size: 12px;
+                  line-height: 22px;
                 }
               }
             }
@@ -144,7 +158,8 @@
                 line-height: 35px;
               };
               @include mediaQueries.maxWidthMobile {
-                font-size: fonts.$font-size-content-mobile;
+                //font-size: fonts.$font-size-content-mobile;
+                font-size: 12px;
               }
             }
           }
@@ -157,7 +172,7 @@
         }
         @include mediaQueries.maxWidthMobile {
           position: absolute;
-          top: 244px;
+          top: 228px;
         }
       }
     }
