@@ -4,7 +4,7 @@
 
 .top-line {
   @include mediaQueries.desktop {
-    border-top: 1px solid colors.$footerBorder;
+    //border-top: 1px solid colors.$footerBorder;
     width: 100%;
     padding-top: 20px;
     &:first-child {
