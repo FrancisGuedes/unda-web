@@ -23,6 +23,8 @@
   };
   @include mediaQueries.maxWidthMobile {
     //padding: vars.$footerMaxWidthMobile;
+    height: 100%;
+    min-height: auto;
   }
   .contact-title-wrapper {
     /* display: flex;

@@ -21,3 +21,11 @@
     height: 100%;
   }
 }
+
+.contact-background-image {
+  @include mediaQueries.maxWidthMobile {
+    min-height: 330px;
+    height: 50vh;
+    padding: 5vh 5vw 5vh 5vw;
+  }
+} 

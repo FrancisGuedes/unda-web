@@ -76,6 +76,10 @@ export const functionalityAlias = {
     },
     modal: {
       id: 'modal',
+    },
+    background: {
+      section: 'content-section-bg',
+      content: 'content-section'
     }
   }
 }
