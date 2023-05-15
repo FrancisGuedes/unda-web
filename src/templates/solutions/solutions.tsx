@@ -33,6 +33,9 @@ const Solutions = ({
 
   const solutionsText: SolutionsModule.IContent[] = solutionsData['text']['fields']['paragraphContent']['content'];
 
+  const windowWidth: number = useWindowWidth();
+  const windowWidthMobileDesktop: number = 667;
+
   const solutionsBulletPoints: JSX.Element[] = solutionsData['bulletPoints'].map((text: SolutionsModule.IBulletPoint, index: number) => {
     let bulletPoint: string = text['fields']['text']['content'][0]['content'].map((element: SolutionsModule.IContent4) => element['content'][0]['content'][0].value).toString();
     return (
@@ -50,11 +53,8 @@ const Solutions = ({
     );
   })
 
-  const windowWidth: number = useWindowWidth();
-
   const solutionsTextParagraphTitle: JSX.Element[] = solutionsText.map((phrase: SolutionsModule.IContent, index: number) => {
     let linePhrase: string = phrase['content'].map(line => line.value).toString();
-    const windowWidthMobileDesktop: number = 667;
     let splittedLinePhrase: string[] = linePhrase.split('.');
 
     return (
@@ -64,11 +64,13 @@ const Solutions = ({
             className='solutions-text-paragraph_title'
           >
             {
-              windowWidth >= windowWidthMobileDesktop ? (linePhrase)  :  (
-                <>
-                  {splittedLinePhrase[0]}. <br/><br/> {splittedLinePhrase[1]}
-                </>
-              )
+              windowWidth >= windowWidthMobileDesktop 
+              ? (linePhrase)  
+              : (
+                  <>
+                    {splittedLinePhrase[0]}. <br/><br/> {splittedLinePhrase[1]}
+                  </>
+                )
             }
           </AppParagraph>
         </div>
@@ -98,13 +100,19 @@ const Solutions = ({
               </ul>
             </div>
           </div>
-          <picture className="solutions-image-wrapper">
-            <img 
-              src={solutionsImageUrl} 
-              alt={solutionsImageAlt}
-              className="solutions-image"
-            />
-          </picture>
+          {
+            windowWidth >= windowWidthMobileDesktop 
+            ? (
+                <picture className="solutions-image-wrapper">
+                  <img 
+                    src={solutionsImageUrl} 
+                    alt={solutionsImageAlt}
+                    className="solutions-image"
+                  />
+                </picture>
+              )
+            : null
+          }
         </div>
       </section>
     </>
