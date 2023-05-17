@@ -8,9 +8,7 @@ npm i next@12.3.1 react@18.2.0 react-dom@18.2.0 sass@1.55.0
 ```
 or
 ```
-npx create-next-app@12 name-of-app --typescript
-
-npm i sass
+npx create-next-app@12 app-name --typescript && cd app-name && npm i next@12 sass
 ```
 
 and then run the development server:
