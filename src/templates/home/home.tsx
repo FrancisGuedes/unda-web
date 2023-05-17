@@ -29,7 +29,7 @@ const Home: NextPage<IHomeProps> = ({
     if (text['fields']['text']?.content !== undefined) {
       titleLabel = text['fields']['text']['content'][0]['content'][0].value;
     } else {
-      titleLabel = 'Connecting people';
+      titleLabel = 'Connecting people through creative experiences';
     }
 
     return (
