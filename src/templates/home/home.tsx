@@ -24,7 +24,14 @@ const Home: NextPage<IHomeProps> = ({
     .next().value;
   
   const homeTitle: JSX.Element[] = homeSectionData['title'].map((text: HeroModule.ITitle, index: number) => {
-    const titleLabel = text['fields']['text']['content'][0]['content'][0].value;
+    // remove this check on merging this branch with feature/version-2
+    let titleLabel: string = '';
+    if (text['fields']['text']?.content !== undefined) {
+      titleLabel = text['fields']['text']['content'][0]['content'][0].value;
+    } else {
+      titleLabel = 'Connecting people';
+    }
+
     return (
       <> 
         <div key={index}>
