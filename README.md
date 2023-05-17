@@ -4,9 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, install dependencies:
 ```
-npm i
-
-npm install next@12.3.1 react@18.2.0 react-dom@18.2.0 sass@1.55.0
+npm i next@12.3.1 react@18.2.0 react-dom@18.2.0 sass@1.55.0
 ```
 
 and then run the development server:
