@@ -1,5 +1,5 @@
 {
-  "short_name": "UNDA Consultoria",
+  "short_name": "UNDA - Creative Consultancy",
   "name": "UNDA - Connecting people through groundbreaking experiences",
   "icons": [
     {
@@ -19,9 +19,9 @@
     }
   ],
   "start_url": "/?source=pwa",
-  "background_color": "#ffeee3",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#ffeee3",
+  "theme_color": "#ffffff",
   "description": "We're UNDA: a creative team that combines bold vision with strategic thinking to deliver exceptional creative projects. Our focus is on driving real change in your business"
 }

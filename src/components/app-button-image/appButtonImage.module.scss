@@ -1,15 +1,25 @@
 @use '../../styles/core/colors';
 @use '../../styles/core/rules';
+@use '../../styles/core/mediaQueries';
 
 .home-button-wrapper {
   position: relative;
   width: 136px;
+  @include mediaQueries.maxWidthMobile {
+    bottom: 0;
+    position: absolute;
+    width: 115px;
+  }
   .app-button-image {
     cursor: pointer;
   }
   .app-button-button {
     @include rules.center;
-    background-color: colors.$black;
-    width: 80%;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    @include mediaQueries.maxWidthMobile {
+      font-size: 10px;
+    }
   }
 }

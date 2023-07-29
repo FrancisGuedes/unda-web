@@ -14,6 +14,7 @@ interface AppButtonImageProps {
   ariaLabel: string;
   href: string;
   buttonLabel: string;
+  classAppButtonImageWrapper?: string | undefined;
 }
 
 type LabelAppButtonImage = {
@@ -28,16 +29,20 @@ const AppButtonImage = ({
   classNameButton,
   ariaLabel,
   href,
-  buttonLabel
+  buttonLabel,
+  classAppButtonImageWrapper
 }: AppButtonImageProps) => {
   const labelAppButton: LabelAppButtonImage = {...functionalityAlias.component.appButtonButton};
   const labelAppButtonImage: LabelAppButtonImage = {...functionalityAlias.component.appButtonImage};
   let classesNameButton: string = createClassName(labelAppButton.defaultClassName, classNameButton);
   let classesNameImage: string = createClassName(labelAppButtonImage.defaultClassName, classNameImage);
 
+  const labelAppButtonImageWrapper = "home-button-wrapper";
+  let classesAppButtonImageWrapper: string = createClassName(labelAppButtonImageWrapper, classAppButtonImageWrapper);
+
   return (
     <>
-      <div className="home-button-wrapper">
+      <div className={classesAppButtonImageWrapper}>
         <Image
           src={src}
           width={imageWidth}

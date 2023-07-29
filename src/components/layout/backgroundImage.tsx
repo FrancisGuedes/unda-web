@@ -1,15 +1,20 @@
 import { useEffect } from "react";
 import { LayoutModule } from "../../lib/interfaces/contentful/ilayout";
-import { concatHttpsAndUrlFromContentful } from "../../utils/utility";
+import { concatHttpsAndUrlFromContentful, createClassName } from "../../utils/utility";
+import { functionalityAlias } from "../../utils/strings";
 
 interface BackgroundImageProps {
   children: React.ReactNode;
   layoutData: LayoutModule.IFile;
+  classNameBg?: string | undefined;
+  classNameBgContent?: string | undefined;
 };
 
 const BackgroundImage = ({
   children,
-  layoutData
+  layoutData,
+  classNameBg,
+  classNameBgContent
 }: BackgroundImageProps) => {
   const imageUrl: string = concatHttpsAndUrlFromContentful(layoutData.url);
 
@@ -18,6 +23,10 @@ const BackgroundImage = ({
       document.documentElement.style.setProperty('--imageUrl', `url('${imageUrl}')`)
     }
   }, []);
+
+  const labelBgSection = {...functionalityAlias.component.background};
+  let classSection: string = createClassName(labelBgSection.section, classNameBg);
+  let classContentSection: string = createClassName(labelBgSection.content, classNameBgContent);
 
   /* useEffect(() => {
     const backgroundImage = document.getElementById("layout-img");
@@ -32,8 +41,8 @@ const BackgroundImage = ({
   
   return (
     <>
-      <section className="content-section-bg">
-        <div className="content-section">
+      <section className={classSection}>
+        <div className={classContentSection}>
           {children}
         </div>
       </section>

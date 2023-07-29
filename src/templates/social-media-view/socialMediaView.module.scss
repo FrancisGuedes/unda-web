@@ -20,11 +20,13 @@
   //background-color: colors.$black;
   background-color: #dcdcdc;
   //color: white;
-
   /* bottom: 0;
   position: absolute; */
   @include mediaQueries.desktop {
     //flex-direction: column;
     min-height: 400px;
+  }
+  @include mediaQueries.maxWidthMobile {
+    min-height: 338px;
   }
 }
