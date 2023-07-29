@@ -8,15 +8,29 @@
     width: 260px;
     margin-bottom: 60px;
   };
+  @include mediaQueries.maxWidthMobile {
+    width: 170px;
+  };
   .app-title-image_image {
   }
   .app-title-image_title {
     @include rules.center;
     top: 63px;
-    left: 107px;
-    font-size: 27px;
+    left: 126px;
+    width: 12.4vw;
     @include mediaQueries.minWidthBigDesktops {
       font-size: 31px;
+      left: 150px;
+    };
+    @include mediaQueries.desktop {
+      top: 62px;
+      left: 158px;
+      width: 100%;
+    };
+    @include mediaQueries.maxWidthMobile {
+      top: 44px;
+      left: 105px;
+      width: 150px;
     };
   }
 }
