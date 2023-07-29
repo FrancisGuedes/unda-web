@@ -9,3 +9,6 @@ $font-medium: map-get($map: $font-weights, $key: medium);
 $font-semi-bold: map-get($map: $font-weights, $key: semi-bold);
 $font-bold: map-get($map: $font-weights, $key: bold);
 $font-extra-bold: map-get($map: $font-weights, $key: extra-bold);
+
+$font-size-header-mobile: 22px;
+$font-size-content-mobile: 16px;

@@ -22,21 +22,30 @@ const Home: NextPage<IHomeProps> = ({
     Object.entries(homeSectionProps))
     .values()
     .next().value;
-  
+  console.log("homeSectionData: ", homeSectionData)
   const homeTitle: JSX.Element[] = homeSectionData['title'].map((text: HeroModule.ITitle, index: number) => {
-    // remove this check on merging this branch with feature/version-2
-    let titleLabel: string = '';
-    if (text['fields']['text']?.content !== undefined) {
-      titleLabel = text['fields']['text']['content'][0]['content'][0].value;
-    } else {
-      titleLabel = 'Connecting people through creative experiences';
-    }
+    //const titleLabel = text['fields']['text']['content'][0]['content'][0].value;
+    let titleParagraph;
+    const titleContent = text['fields']['text']?.['content'];
+    if(titleContent !== null && titleContent !== undefined) {
+      titleParagraph = titleContent.map((titleContentArray: HeroModule.IContent) => {
+        let titleLine = titleContentArray.content.map((title: HeroModule.IContent2) => {
+          return title.value.concat(" ");
+        }).toString();
 
+        return (
+          <> 
+            {titleLine}
+          </>
+        );
+      })
+    }
+    
     return (
       <> 
         <div key={index}>
           <AppTitle>
-            {titleLabel}
+            {titleParagraph}
           </AppTitle>
         </div>
       </>

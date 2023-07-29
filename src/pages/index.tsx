@@ -106,7 +106,9 @@ const Index: NextPage<IIndexProps> = ({
         />
       </Layout>
       <BackgroundImage
-        layoutData={layoutFile}>
+        layoutData={layoutFile}
+        classNameBg='contact-background-image'
+        classNameBgContent='contact-background-content-image'>
           <Contact
             contactSectionProps={contactSectionProps}
             contactRef={contactRef}

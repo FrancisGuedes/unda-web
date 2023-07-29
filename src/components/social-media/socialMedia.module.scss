@@ -4,12 +4,15 @@
 
 .top-line {
   @include mediaQueries.desktop {
-    border-top: 1px solid colors.$footerBorder;
+    //border-top: 1px solid colors.$footerBorder;
     width: 100%;
     padding-top: 20px;
     &:first-child {
       border-top: 0;
     }
+  }
+  @include mediaQueries.maxWidthMobile {
+    padding-top: 0;
   }
 }
 .contact-link {

@@ -4,8 +4,10 @@
 
 .home-wrapper {
   align-items: center;
-  padding-bottom: 30px;
-  padding-top: 30px;
+  @include mediaQueries.maxWidthMobile {
+    height: 100vh;
+    margin-top: 10px;
+  }
   .home-content {
     display: flex;
     flex-direction: row;
@@ -15,10 +17,25 @@
     align-items: center;
     .home-text-wrapper {
       margin: 60px 0;
+      width: 42%;
       @include mediaQueries.desktop {
-        width: 100%;
+        width: 470px;
       };
+      @include mediaQueries.maxWidthMobile {
+        min-height: 220px;
+        position: relative;
+        margin-bottom: 0;
+        margin: 22px 0;
+        width: 100%;
+      }
       .home-text-content {
+        //width: 100%;
+        //width: 470px;
+        line-height: 50px;
+        @include mediaQueries.maxWidthMobile {
+          width: 340px;
+          min-width: 250px;
+        }
       }
       .home-button-image {
       }
@@ -27,25 +44,27 @@
     }
     .home-image-wrapper {
       margin: 60px 0;
-      width: 55%;
+      width: 52%;
       height: 100%;
       @include mediaQueries.desktop {
         width: 100%;
         position: relative;
       };
       @include mediaQueries.maxWidthMobile {
-        height: 400px;
+        height: 280px;
+        margin: 24px 0;
       }
       .home-image {
         height: 100%;
         width: 100%;
-        min-width: 354px;
+        min-width: 276px;
         @include mediaQueries.desktop {
-          min-height: 350px;
+          //height: 350px;
         };
         @include mediaQueries.maxWidthMobile {
           object-fit: cover;
-          height: 100%;
+          height: 222px;
+          //height: 100%;
           // height: auto; REMOVE this line for normal ratio responsiveness
           position: absolute;
         };
