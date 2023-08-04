@@ -108,7 +108,7 @@ export const strings = {
 }
 
 export const indexHtmlStrings = {
-  title: "UNDA - Creative Consultancy",
+  title: "UNDA",
   lang: 'en',
   charSet: "UTF-8",
   name: "viewport",
