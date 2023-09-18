@@ -178,6 +178,7 @@
         }
         @include mediaQueries.maxWidthMobile {
           top: 228px;
+          position: absolute; //TODO fix this double position values
         }
       }
     }
