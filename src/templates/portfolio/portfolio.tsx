@@ -37,12 +37,15 @@ const Portfolio = ({
       breakpoints: {
         '(min-width: 667px)': {
           slidesPerView: 1.5,
+          spacing: 30
         },
         '(min-width: 970px)': {
           slidesPerView: 2,
+          spacing: 40
         },
         '(min-width: 1800px)': {
-          slides: 3,
+          slidesPerView: 3,
+          spacing: 50
         },
       },
       slideChanged: (s) => handleSlideChange(s.details().relativeSlide),

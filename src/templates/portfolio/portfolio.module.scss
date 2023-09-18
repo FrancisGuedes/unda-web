@@ -83,7 +83,7 @@
         };
         .portfolio-carousel-card_wrapper {
           max-height: 750px;
-          width: 32vw;
+          //width: 32vw;
           @include mediaQueries.desktop {
             width: 90%;
           };
@@ -172,10 +172,11 @@
       }
       .dots-wrapper {
         @include mediaQueries.minWidthdesktop {
-          display: none;
+          //display: none;
+          position: absolute;
+          top: 335px;
         }
         @include mediaQueries.maxWidthMobile {
-          position: absolute;
           top: 228px;
         }
       }
