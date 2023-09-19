@@ -136,6 +136,7 @@
           }
           .portfolio-card-description_wrapper {
             margin: 45px 0;
+            min-height: 210px;
             @include mediaQueries.maxWidthMobile {
               margin: 45px 0 25px 0;
             }
@@ -171,14 +172,13 @@
         
       }
       .dots-wrapper {
+        position: absolute;
+        top: 335px;
         @include mediaQueries.minWidthdesktop {
-          //display: none;
-          position: absolute;
-          top: 335px;
+          // Consider uncommenting if needed: display: none;
         }
         @include mediaQueries.maxWidthMobile {
           top: 228px;
-          position: absolute; //TODO fix this double position values
         }
       }
     }
