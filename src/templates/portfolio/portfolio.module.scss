@@ -88,7 +88,7 @@
             width: 90%;
           };
           @include mediaQueries.minWidthBigDesktops {
-            width: 31vw;
+            width: 14vw;
             margin-right: 40px;
             max-height: 100%;
           };
@@ -140,6 +140,9 @@
             @include mediaQueries.maxWidthMobile {
               margin: 45px 0 25px 0;
             }
+            @include mediaQueries.minWidthdesktop {
+              min-height: 255px;
+            }
             .portfolio-card-description_content {
               .portfolio-card-description_content-text {
                 line-height: 35px;
@@ -176,6 +179,8 @@
         top: 335px;
         @include mediaQueries.minWidthdesktop {
           // Consider uncommenting if needed: display: none;
+          top: 421px;
+          left: 610px;
         }
         @include mediaQueries.maxWidthMobile {
           top: 228px;

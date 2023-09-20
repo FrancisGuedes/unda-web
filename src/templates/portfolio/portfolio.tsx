@@ -44,7 +44,7 @@ const Portfolio = ({
           spacing: 40
         },
         '(min-width: 1800px)': {
-          slidesPerView: 3,
+          slidesPerView: 2,
           spacing: 50
         },
       },
