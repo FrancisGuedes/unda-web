@@ -12,7 +12,7 @@
   min-height: 850px;
   @include mediaQueries.desktop {
     height: 100%;
-  };
+  }
   @include mediaQueries.maxWidthMobile {
     min-height: 700px;
     height: 710px;
@@ -30,28 +30,28 @@
       max-width: 460px;
       @include mediaQueries.desktop {
         width: 100%;
-      };
+      }
       @include mediaQueries.maxWidthMobile {
         margin: 0;
       }
-        .portfolio-app-title-image_wrapper {
-          width: 229px;
-          @include mediaQueries.maxWidthMobile {
-            width: 145px;
+      .portfolio-app-title-image_wrapper {
+        width: 229px;
+        @include mediaQueries.maxWidthMobile {
+          width: 145px;
+        }
+        .portfolio-app-title-image_title {
+          top: 92px;
+          left: 130px;
+          @include mediaQueries.minWidthBigDesktops {
+            left: 154px;
           }
-          .portfolio-app-title-image_title {
-            top: 92px;
-            left: 130px;
-            @include mediaQueries.minWidthBigDesktops {
-              left: 154px;
-            };
-            @include mediaQueries.desktop {
-              left: 151px;
-            }
-            @include mediaQueries.maxWidthMobile {
-              top: 54px;
-              left: 97px;
-            }
+          @include mediaQueries.desktop {
+            left: 151px;
+          }
+          @include mediaQueries.maxWidthMobile {
+            top: 54px;
+            left: 97px;
+          }
         }
       }
     }
@@ -65,10 +65,13 @@
       align-items: center;
       @include mediaQueries.desktop {
         width: 100%;
-      };
+      }
       @include mediaQueries.maxWidthMobile {
         margin: 50px 0;
-      };
+      }
+      @include mediaQueries.minWidthBigDesktops {
+        width: 72%;
+      }
       .carousel-item {
         min-height: 450px;
         height: 100%;
@@ -80,22 +83,20 @@
         margin-bottom: 60px;
         @include mediaQueries.maxWidthMobile {
           margin-bottom: 50px;
-        };
+        }
         .portfolio-carousel-card_wrapper {
           max-height: 750px;
           //width: 32vw;
           @include mediaQueries.desktop {
             width: 90%;
-          };
+          }
           @include mediaQueries.minWidthBigDesktops {
-            width: 14vw;
-            margin-right: 40px;
             max-height: 100%;
-          };
+          }
           @include mediaQueries.maxWidthMobile {
             //width: 45vw; use if you see buggin again -.-
-            width: 100%; 
-          };
+            width: 100%;
+          }
           .portfolio-card-image_wrapper {
             .card {
               display: flex;
@@ -112,10 +113,10 @@
               margin-bottom: 10px;
               @include mediaQueries.maxWidthMobile {
                 height: 210px;
-              };
+              }
               @include mediaQueries.minWidthBigDesktops {
                 height: 400px;
-              };
+              }
             }
             img {
               position: absolute;
@@ -125,7 +126,7 @@
               transition: opacity 0.3s ease-in-out;
               cursor: pointer;
             }
-    
+
             .hover-image {
               opacity: 0;
             }
@@ -164,7 +165,7 @@
               @include mediaQueries.minWidthBigDesktops {
                 font-size: 27px;
                 line-height: 35px;
-              };
+              }
               @include mediaQueries.maxWidthMobile {
                 //font-size: fonts.$font-size-content-mobile;
                 font-size: 12px;
@@ -172,15 +173,14 @@
             }
           }
         }
-        
       }
       .dots-wrapper {
         position: absolute;
         top: 335px;
-        @include mediaQueries.minWidthdesktop {
+        @include mediaQueries.minWidthBigDesktops {
           // Consider uncommenting if needed: display: none;
           top: 421px;
-          left: 610px;
+          //left: 29vw;
         }
         @include mediaQueries.maxWidthMobile {
           top: 228px;
@@ -189,8 +189,3 @@
     }
   }
 }
-
-
-
-
-
