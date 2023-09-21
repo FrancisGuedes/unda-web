@@ -40,3 +40,5 @@ Allow: /
 User-agent: *
 Crawl-Delay: 10
 Disallow: /
+
+Sitemap: https://unda.pt/sitemap.xml
