@@ -93,6 +93,12 @@ $size__big_desktop: 1801px;
   } 
 }
 
+@mixin maxWidthBigDesktops { 
+  @include media("screen", "<bigDesktopSize") { 
+    @content; 
+  } 
+}
+
 @mixin maxWidthDesktop { 
   @include media("screen", "<defaultSize") { 
     @content; 
