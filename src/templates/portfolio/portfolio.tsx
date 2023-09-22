@@ -58,8 +58,6 @@ const Portfolio = ({
   .next()
   .value;
 
-  //console.log('portfolioData: ', portfolioData);
-
   function getCardImageFromContentful(): void {
     const normalImageUrl = portfolioData['cardMain'].map((singleCard: PortfolioModule.ICardMain) => {
       const singleCardNormalImageUrl: string = singleCard['fields']['cardImage'].map((imageCard: PortfolioModule.ICardImage) => 
