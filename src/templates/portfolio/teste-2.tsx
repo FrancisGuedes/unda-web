@@ -1,4 +1,4 @@
-import "./styles.scss";
+/* import "./styles.scss";
 import data from "./fruits.json";
 import Tag from "./Tag";
 import { useState, useRef } from "react";
@@ -76,3 +76,4 @@ export default function App() {
     </div>
   );
 }
+ */
