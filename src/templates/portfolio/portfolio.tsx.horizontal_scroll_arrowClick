@@ -1,0 +1,676 @@
+import { useLayoutEffect, useEffect, useRef, useState, useCallback, useReducer, SyntheticEvent, MutableRefObject } from "react";
+import { IPortfolioSectionFields } from "../../../@types/generated/contentful";
+import { PortfolioModule } from "../../lib/interfaces/contentful/iportfolio";
+import { concatHttpsAndUrlFromContentful } from "../../utils/utility";
+import AppTitleImage from "../../components/app-title-image/appTitleImage";
+
+import Image from 'next/image';
+import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
+import {ScrollToPlugin} from "gsap/dist/ScrollToPlugin";
+import {gsap, Expo} from "gsap";
+
+import arrow from "../../assets/icons/arrow.svg"
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+const pageConstants = {
+  DEFAULT_INDEX: 0,
+  ACTIVE_ZINDEX: '500',
+  INACTIVE_TRANSLATE: '100%',
+  POLYGON_INACTIVE: 'polygon(0 76%, 100% 89%, 100% 100%, 0% 100%)',
+  POLYGON_ACTIVE: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
+};
+interface portfolioSectionProps {
+  portfolioSectionProps: IPortfolioSectionFields[];
+  portfolioRef: any;
+}
+
+const initialStateActiveElementReducer = {
+  cardsLength: 0,
+  activeElem: null,
+  index: 0,
+  progressValue: 0
+}
+
+const activeElementReducer = (state: any = pageConstants.DEFAULT_INDEX, action: any) => {
+  console.log("[activeElementReducer] state: ", state);
+  switch (action.type) {
+    case 'SET_CARDS_LENGTH':
+      return {
+        ...state,
+        cardsLength: action.payload.cardsLength,
+      };
+    case 'SET_ACTIVE_ELEMENT':
+      return {
+        ...state,
+        activeElem: action.payload.activeEl,
+        index: action.payload.index,
+      };
+    case 'SET_PROGRESS_VALUE':
+      //const progressPercentage = action.payload?.cardsLength != 0 ? 100 / action.payload?.cardsLength : 0;
+      //const nextProgress = action.payload.progress + 10;
+      const nextProgressValue = action.payload.progressValue > 0 ? state.progressValue + action.payload.progressValue : state.progressValue = 0;
+      console.log("[activeElementReducer] nextProgress: ", nextProgressValue);
+      //console.log("[activeElementReducer] progressPercentage: ", progressPercentage);
+
+      return { 
+        ...state, 
+        progressValue: nextProgressValue, 
+      };
+    default:
+      return state;
+  }
+};
+
+const Portfolio = ({
+  portfolioSectionProps,
+  portfolioRef
+}: portfolioSectionProps) => {
+  const [localSlide, setLocalSlide] = useState<any>();
+  const [imageContentful, setImageContentful] = useState<string[][]>([]);
+
+  const [currentCard, setCurrentCard] = useState<number>(0);
+  const [isScrollHorizontalActive, setIsScrollHorizontalActive] = useState<boolean>(false); 
+  const [slides, setSlides] = useState<number[]>([]); 
+
+  // Refs for horizontal carousel
+  const containerRef = useRef<HTMLDivElement>(null);
+  const panelsRef = useRef<HTMLDivElement[]>([]);
+  const progressWrapperRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const bgListContainer = useRef<HTMLDivElement | null>(null);
+
+  // FIXME TESTING PREV AND NEXT
+  const [length, setLength] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean[]>([true, false]);
+  const [activeCard, setActiveCard] = useState<Object>({});
+  const [activeElement, dispatchActiveElement] = useReducer(activeElementReducer, initialStateActiveElementReducer);
+  const [scrollX, setScrollX] = useState(0);
+  const [scrollProgressGsap, setScrollProgressGsap] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+
+  
+
+  const maxCardsLength = length - 1; // the last ref is regarding the scroll progress
+  const tl = gsap.timeline();
+  const tl2 = gsap.timeline();
+
+  const portfolioData: PortfolioModule.IPortfolio = new Map(Object.entries(portfolioSectionProps))
+  .values()
+  .next()
+  .value;
+
+  function getCardImageFromContentful(): void {
+    const normalImageUrl = portfolioData['cardMain'].map((singleCard: PortfolioModule.ICardMain) => {
+      const singleCardNormalImageUrl: string = singleCard['fields']['cardImage'].map((imageCard: PortfolioModule.ICardImage) => 
+      imageCard['fields']['media']['fields']['file'].url
+      ).toString();
+      // filter out undefined elements
+      const normalImageSplitted: string[] = singleCardNormalImageUrl.split(',').filter(Boolean); 
+      const normalImageUrlList: string[] = normalImageSplitted.map((element: string) => concatHttpsAndUrlFromContentful(element));
+      return normalImageUrlList;
+    });
+    setImageContentful(normalImageUrl);
+  };
+  useEffect(() => {
+    getCardImageFromContentful();
+  }, [])
+
+  const createPanelsRefs = (panel: HTMLDivElement | null, index: number) => {
+    if (panelsRef.current && panel != null) {
+      panelsRef.current[index] = panel;
+    }
+  };
+
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      let panels = gsap.utils.toArray(".portfolio_card");
+
+      // Progress bar animation on horizontal scroll
+      gsap.to(progressRef!.current, {
+        xPercent: 100,
+        ease: 'none',
+        scrollTrigger: { 
+          trigger: containerRef.current,
+          scrub: 0.8,
+          start: "top top",
+          end: () => "+=" + containerRef.current?.offsetWidth,
+          markers:true,
+          id:"progress"
+        }
+      });
+
+      // Horizontal Scroll carousel
+      gsap.to(panelsRef!.current, {
+        xPercent: -100 * (panelsRef.current.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          pin: true,
+          scrub: 1,
+          start: "top 10%",
+          end: () => "+=" + containerRef.current?.offsetWidth,
+          //end: () => "+=" + window.innerWidth * panels.length,
+          markers: true,
+          id:"to",
+          /* onEnter: () => {
+            const nextCardScrollPosition = getActiveCardScrollPosition(activeElement.index + 1);
+            window.scrollTo(0, nextCardScrollPosition);
+          }, */
+          
+          onEnter: ({progress, direction, isActive}) => {
+            console.log("[ON_ENTER]", progress, direction, isActive)
+            const nextCardScrollPosition = getActiveCardScrollPosition(activeElement.index + 1);
+            // Scroll to the next card.
+            //gsap.to(window, {duration: 1, scrollTo: nextCardScrollPosition});
+
+          },
+          onEnterBack: () => console.log("onEnterBack"),
+          onUpdate: self => {
+            setScrollProgressGsap(+self.progress.toFixed(2)*100)
+          },
+          onToggle: () => console.log("onToggle"),
+        }
+      });
+
+
+    }, containerRef);
+
+
+    return () => ctx.revert();
+  });
+
+  const portfolioTitle: string = portfolioData['title'];
+  const portfolioTitleImage: PortfolioModule.IFile = portfolioData['titleImage']['fields']['media']['fields']['file'];
+  // 1366 and 768 -> width and height were divided by 7.5
+  const portfolioTitleImageUrl: string = concatHttpsAndUrlFromContentful(portfolioTitleImage.url);
+
+  const [width, setWidth] = useState<number | ''>(''); // State to hold the width
+
+  /* const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [widthContainer, setWidthContainer] = useState<number>(0); */
+
+  // TODO 
+  // arrows for carousel WIP
+  // scroll for more disappears when reach last slide
+  // arrow right disables when reach last slide
+  // arrow left enables when slide is 1
+
+  const listExists = (): boolean | null => {
+    return (
+      (bgListContainer.current &&
+        bgListContainer.current.children &&
+        bgListContainer.current.children.length > 0)
+    );
+  };
+
+  const elementList = useCallback((): HTMLElement[] | undefined => {
+    if (listExists()) {
+      //console.log("Array.prototype.slice", Array.prototype.slice.call(bgListContainer.current?.children))
+      return Array.prototype.slice.call(bgListContainer.current?.children);
+    }
+  }, []);
+
+  // we are using useCallback here to ensure function is only re-created if dependencies changed
+  const initElements = useCallback(() => {
+    if (listExists()) {
+      //console.log("[initElements] disabled: ", disabled)
+
+      const activeIndex = pageConstants.DEFAULT_INDEX;
+      setActiveIndex(activeIndex); // Set the active index in your state
+      /* const disabledIndex: boolean[] = [true, false];
+      setDisabled(disabledIndex); */
+      const { currentIndex, activeElem } = getActiveElement();
+      /* if(hasNullOrEmptyValue) {
+          const activeElementObj = {
+          activeEl: elementList()![activeIndex],
+          index: activeIndex,
+        };
+        console.log("[initElements] hasNullOrEmptyValue: ", activeElementObj)
+        setActiveCard(activeElementObj);
+      } 
+      
+      console.log("[initElements] index: ", currentIndex)
+      console.log("[initElements] activeEl: ", activeElem)
+      console.log("[initElements] activeCard: ", activeCard)*/
+
+      /* for (let i = pageConstants.DEFAULT_INDEX + 1; i < (maxCardsLength); i++) {
+        gsap.to(elementList()![i], {
+          duration: 0,
+          zIndex: -1,
+          autoAlpha: 1,
+          translateX: pageConstants.INACTIVE_TRANSLATE,
+        });
+      } */
+    }
+  }, [length, elementList]);
+
+  const getActiveElement: () => {
+    currentIndex: number;
+    activeElem: HTMLElement;
+  } = () => {
+    let activeElementObj = {} as {
+      currentIndex: number;
+      activeElem: HTMLElement;
+    };
+
+    if (activeElement.index >= 0 && activeElement.index < elementList()!.length) {
+      activeElementObj = {
+        currentIndex: activeElement.index,
+        activeElem: elementList()![activeElement.index],
+      };
+    }
+    //const nextActiveIndex = (activeElement.index + 1) % length;
+    //const activeElem = elementList()![nextActiveIndex];
+
+    //debugger
+
+    // Dispatch the new active element
+    /* dispatchActiveElement({
+      type: 'SET_ACTIVE_ELEMENT',
+      payload: {
+        activeEl: activeElem,
+        index: nextActiveIndex,
+      },
+    }); */
+
+    /* console.log("[getActiveElement] activeIndex: ", activeIndex)
+    console.log("[getActiveElement] activeCard: ", activeCard)
+    console.log("[getActiveElement] activeElementObj: ", activeElementObj) 
+    console.log("[getActiveElement] activeElement: ", activeElement)
+    console.log("[getActiveElement] dispatchActiveElement: ", dispatchActiveElement)
+    console.log("[getActiveElement] index: ", activeElementObj.currentIndex)
+    console.log("[getActiveElement] activeElem: ", activeElementObj.activeElem)*/
+
+    return activeElementObj;
+  };
+
+  const movePrev = (): void => {
+    const { currentIndex, activeElem } = getActiveElement();
+    const prevActiveIndex = currentIndex - 1;
+    let prevElementSibling = elementList()![prevActiveIndex];
+
+    // Dispatch the new active element
+    dispatchActiveElement({
+      type: 'SET_ACTIVE_ELEMENT',
+      payload: {
+        activeEl: prevElementSibling,
+        index: prevActiveIndex,
+      },
+    });
+
+    dispatchActiveElement({ 
+      type: 'SET_PROGRESS_VALUE',
+      payload: {
+        progressValue: -(100 / maxCardsLength),
+      }
+    });
+
+    setDisabled(prevDisabled => {
+      console.log("prevDisabled", prevDisabled)
+      if (prevActiveIndex > 0 && prevActiveIndex < maxCardsLength) {
+        return [prevDisabled[0], false];
+      } else if(prevActiveIndex === 0) {
+        return [true, prevDisabled[1]];
+      } else {
+        return prevDisabled;
+      }
+    });
+    
+    if (prevActiveIndex <= 0) {
+      prevElementSibling = elementList()![currentIndex];
+      //animateElement(prevElementSibling, currentIndex, true, true);
+    } else {
+      //animateElement(prevElementSibling, currentIndex, false, true);
+    }
+  };
+
+  const moveNext = (): void => {
+    console.log("[moveNext] STARTING NEXT BUTTON!")
+    console.log("[moveNext] disabled: ", disabled)
+    
+    const { currentIndex, activeElem } = getActiveElement();
+
+    console.log("[moveNext] index: ", currentIndex)
+    console.log("[moveNext] activeEl: ", activeElem)
+
+    const nextActiveIndex = currentIndex + 1;
+    let nextActiveElement = elementList()![nextActiveIndex];
+
+    console.log("[moveNext] nextActiveIndex: ", nextActiveIndex)
+    console.log("[moveNext] nextActiveElement: ", nextActiveElement)
+    
+
+    // Dispatch the new active element
+    dispatchActiveElement({
+      type: 'SET_ACTIVE_ELEMENT',
+      payload: {
+        activeEl: nextActiveElement,
+        index: nextActiveIndex,
+      },
+    });
+
+    dispatchActiveElement({ 
+      type: 'SET_PROGRESS_VALUE',
+      payload: {
+        progressValue: 100 / maxCardsLength,
+      }
+    });
+    /* if (progressRef.current) {
+      progressRef.current.style.width = `${activeElement.progress}%`;
+    } */
+
+    setDisabled(prevDisabled => {
+      console.log("[moveNext][setDisabled] index: ", currentIndex)
+      console.log("[moveNext][setDisabled] prevDisabled: ", prevDisabled)
+      if (nextActiveIndex > 0 && nextActiveIndex < maxCardsLength) {
+        return [false, prevDisabled[1]];
+      } else if(nextActiveIndex === maxCardsLength) {
+        return [prevDisabled[0], true];
+      } else {
+        return prevDisabled;
+      }
+    });
+
+    if (nextActiveIndex >= maxCardsLength ) {
+      nextActiveElement = elementList()![currentIndex];
+      //animateElement(nextActiveElement, currentIndex, true, false);
+    } else {
+      //animateElement(nextActiveElement, currentIndex, false, false);
+    }
+
+    const scrollPosition = getActiveCardScrollPosition(nextActiveIndex);
+    // Animate the window scroll position to the target
+    gsap.to(window, { duration: 1, scrollTo: { y: scrollPosition } });
+    
+    //gsap.to(window, {duration: 1, scrollTo:{y:getActiveCardScrollPosition(activeElement.index + 1), offsetY:700}});
+    //gsap.to(window, {duration: 1, scrollTo:getActiveCardScrollPosition(activeElement.index)});
+
+    /*gsap.to(panelsRef!.current, {
+      ease: "none",
+      scrollTo: scrollPosition,
+      duration: .5,
+    });
+
+    //debugger
+    let shift = 100 / maxCardsLength;
+     if(panelsRef!.current != null) {
+      for(let i=0; i<panelsRef!.current.length; i++ ) {
+        panelsRef!.current[i].scrollLeft += shift;
+      }
+      setScrollX(prevState => prevState + shift);
+    } */
+    
+    
+    console.log("[moveNext] ENDING NEXT BUTTON!")
+  };
+
+  const slide = (shift: number) => {
+    if(containerRef.current != null) {
+      containerRef.current.scrollLeft += shift;
+      setScrollX(prevState => prevState + shift);
+    } 
+    console.log("[slide] scrollX: ", scrollX)
+  }
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(progressRef!.current, { 
+        xPercent: `${activeElement.progressValue}`,
+      });
+
+      gsap.timeline();
+      gsap.to(panelsRef!.current, {
+        ease: "none",
+        scrollTo: 0,
+      });
+
+    }, progressRef);
+
+    return () => ctx.revert();
+  });
+
+
+
+  /* function isNullOrEmpty(obj: any): boolean {
+    for (const key in obj) {
+      if (obj[key] === null || obj[key] === "") {
+        return true; // Property is either null or empty
+      }
+    }
+    return false; // No null or empty properties found
+  }
+  
+  const hasNullOrEmptyValue = isNullOrEmpty(activeCard);
+ */
+  useEffect(() => {
+    //const { index, activeEl } = getActiveElement();
+    const elementListArray = elementList();
+
+    // TODO colocar o if onde inicializa o dispatch para dentro da func initElements()
+    initElements();
+    //console.log("[Component Mount] elementListArray: ", elementListArray);
+
+    if (elementListArray && elementListArray.length > 0) {
+      dispatchActiveElement({
+        type: 'SET_ACTIVE_ELEMENT',
+        payload: {
+          activeEl: elementListArray[0], // Set the active element to the first element
+          index: 0, // Set the index to 0
+        },
+      });
+      //console.log("[Component Mount][dispatchActiveElement] elementListArray: ", elementListArray);
+    }
+
+    //console.log("[Component Mount] index: ", index);
+    //console.log("[Component Mount] activeEl: ", activeElementObj.activeEl);
+    //console.log("panelsRef.current.length: ", panelsRef.current.length)
+    
+    setLength(panelsRef.current.length);
+    dispatchActiveElement({
+      type: 'SET_CARDS_LENGTH',
+      payload: {
+        cardsLength: panelsRef.current.length
+      },
+    });
+
+    //setActiveCard(prevState => ({ ...prevState, index: index, activeEl: activeEl}));
+    //console.log("[Component Mount] activeCard: ", activeCard);
+    //console.log("[Component Mount] activeElement: ", activeElement); 
+    
+
+    const handleScroll = () => {
+      if (bgListContainer.current!=null) {
+        let scrollY = window?.scrollY;
+        let scrollX2 = window?.scrollX;
+        let scrollTop2 = bgListContainer.current.scrollTop;
+        //setScrollX(bgListContainer.current.scrollLeft);
+        setScrollY(scrollY);
+        setScrollX(scrollX2);
+        console.log("[Component Mount][handleScroll] scrollX2: ", scrollX2); 
+        console.log("[Component Mount][handleScroll] scrollY: ", scrollY); 
+        console.log("[Component Mount][handleScroll] scrollTop: ", scrollTop2); 
+      }
+    };
+
+    handleScroll()
+ 
+    if (bgListContainer.current) {
+      window?.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (bgListContainer.current) {
+        window?.removeEventListener('scroll', handleScroll);
+      }
+    }; /**/
+
+  }, []);
+
+  const getActiveCardScrollPosition = (activeIndex: number) => {
+    if (bgListContainer.current && bgListContainer.current.children.length > 0) {
+      const activeCard = bgListContainer.current.children[activeIndex];
+      if (activeCard) {
+        // Calculate the scroll position relative to the active card
+        console.log("[getActiveCardScrollPosition] getBoundingClientRect: ", activeCard.getBoundingClientRect().left);
+        console.log("[getActiveCardScrollPosition] activeCard: ", activeCard);
+        console.log("[getActiveCardScrollPosition] scrollX: ", scrollX);
+        return Math.round(scrollX + activeCard.getBoundingClientRect().left);
+      }
+    }
+    return 0;
+  };
+
+  /* TESTE useScrollPosition 
+  type ElementRef = MutableRefObject<HTMLElement | null>;
+
+  const isBrowser = typeof window !== `undefined`;
+  const zeroPosition = { x: 0, y: 0 };
+
+  const getClientRect = (element?: HTMLElement | null) => element?.getBoundingClientRect();
+
+  const getScrollPosition = ({
+    element,
+    useWindow,
+    boundingElement,
+  }: {
+    element?: ElementRef | null;
+    useWindow?: boolean;
+    boundingElement?: ElementRef | null;
+  }) => {
+    if (!isBrowser) {
+      return zeroPosition;
+    }
+  
+    if (useWindow) {
+      return { x: window.scrollX, y: window.scrollY };
+    }
+  
+    const targetPosition = getClientRect(element?.current || document.body);
+    const containerPosition = getClientRect(boundingElement?.current);
+  
+    if (!targetPosition) {
+      return zeroPosition;
+    }
+  
+    return containerPosition
+      ? {
+          x: (containerPosition.x || 0) - (targetPosition.x || 0),
+          y: (containerPosition.y || 0) - (targetPosition.y || 0),
+        }
+      : { x: targetPosition.left, y: targetPosition.top };
+  };
+
+  const position = useRef(getScrollPosition({
+    element: null,
+    useWindow: true,
+    boundingElement: bgListContainer,
+  }));
+  console.log("[useEffect] position: ", position);
+  console.log("[useEffect] position.current: ", position.current);
+ */
+  
+
+  return (
+    <>   
+      <section id="portfolio" className='portfolio_wrapper' ref={portfolioRef} >
+      
+        <section className="portfolio_content" ref={containerRef} id="portfolio-container" >
+          <article className="portfolio_title-wrapper">
+              <AppTitleImage
+                src={portfolioTitleImageUrl} 
+                imageWidth={228} 
+                imageHeight={190} 
+                titleLabel={portfolioTitle}
+                classNameWrapper="portfolio-app-title-image_wrapper"
+                classNameTitle='portfolio-app-title-image_title'
+              />                
+              <p>
+                Progress: {scrollProgressGsap}
+                <br/>
+                Scroll Position Y: {scrollY}
+                <br/>
+                Active Card Scroll Position: {getActiveCardScrollPosition(activeElement.index)}
+              </p>
+          </article>
+
+          <section 
+            className="portfolio_carousel-wrapper" 
+            ref={bgListContainer}
+          >
+            <article className={`portfolio_card ${activeElement.index===0 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 0)}>card 1</article>
+            <article className={`portfolio_card ${activeElement.index===1 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 1)}>card 2</article>
+            <article className={`portfolio_card ${activeElement.index===2 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 2)}>card 3</article>
+            <article className={`portfolio_card ${activeElement.index===3 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 3)}>card 4</article>
+            <article className={`portfolio_card ${activeElement.index===4 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 4)}>card 5</article>
+            <article className={`portfolio_card ${activeElement.index===5 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 5)}>card 6</article>
+            <article className={`portfolio_card ${activeElement.index===6 ? 'active' : ''}`} ref={(e) => createPanelsRefs(e as HTMLDivElement, 6)}>card 7</article>
+
+            <div className="portfolio_card-overview-progress">
+              <div aria-hidden="true" className="scroll-indicator scroll-indicator-right">
+                <p className="scroll-indicator-help visible">Scroll for more</p>
+                <button 
+                  type="button" 
+                  className="scroll-indicator-button animated btn-icon"
+                  onClick={movePrev}
+                  disabled={disabled[0]}
+                >
+                  <Image
+                    className="arrow-left"
+                    priority
+                    src={arrow}
+                    alt="Arrow for scrolling"
+                    height={14}
+                    width={14}
+                    sizes="(min-width: 1800px) 15"
+                  />
+                </button>
+                <div className="scroll-indicator-progress-wrapper" ref={progressWrapperRef} style={{ width: `${activeElement.progress}%` }}>
+                  <div 
+                    className="scroll-indicator-progress progress"
+                    ref={progressRef}
+                    role="progressbar"
+                  >
+                  </div> 
+                  <img
+                    className="scroll-indicator-progress-dot progress-dot"
+                    src=''
+                    height={6}
+                    width={6}
+                  />
+                </div>
+                <button 
+                  type="button" 
+                  className="scroll-indicator-button animated btn-icon"
+                  onClick={() => {
+                    moveNext()
+                    //slide(100 / maxCardsLength)
+                  }}
+                  disabled={disabled[1]}
+                >
+                  <Image
+                    priority
+                    src={arrow}
+                    alt="Arrow for scrolling"
+                    height={14}
+                    width={14}
+                    sizes="(min-width: 1800px) 15"
+                  />
+                </button>
+              </div>
+              
+            </div>
+          </section>
+        </section>
+        <br/>
+        
+        {/* <div>scrollPosition: {scrollPosition} </div>
+        <br/>
+        <div>widthContainer: {widthContainer}</div> */}
+      </section>
+    </>
+  );
+}
+
+export default Portfolio;

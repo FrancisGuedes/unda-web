@@ -34,8 +34,6 @@ const SocialMedia = ({
   const labelSocialMedia: LabelSocialMedia = {...functionalityAlias.component.socialMedia};
   const classes: LabelSocialMedia = combineObjects(labelSocialMedia, className);
 
-  console.log("socialMediaProps", socialMediaProps)
-
   const renderContactLinksData = socialMediaProps.map((contactLinks: SocialMediaModule.ISocialMediaContent, index: number) => {
     const contactLinkID: string = contactLinks['fields'].id;
     const contactTittleLink: string = contactLinks['fields'].title;

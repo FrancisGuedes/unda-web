@@ -2,98 +2,100 @@
 @use '../../styles/core/colors';
 @use '../../styles/core/fonts';
 
-.portfolio_wrapper {
-  border: 1px solid black;
-  .portfolio_content {
-    max-width: 100%;
+.portfolio-wrapper {
+  //display: grid;
+  //align-items: center;
+  //align-content: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+  height: 100vh;
+  min-height: 850px;
+  @include mediaQueries.desktop {
+    height: 100%;
+  }
+  @include mediaQueries.maxWidthMobile {
+    min-height: 700px;
+    height: 710px;
+  }
+  .portfolio-content {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
     justify-content: space-between;
-    height: calc(100vh - 6.875rem);
-    padding-top: 5.5vmin;
-    padding-bottom: 9vmin;
-    position: relative;
-    padding: 0!important; // to override gsap.pin padding
-    @include mediaQueries.desktop {
-      display: block;
-      min-height: 970px;
-    }
-    .portfolio_title-wrapper  {
+    align-items: flex-start;
+    .portfolio-title-wrapper {
       margin: 60px 0;
-      // width: 20%;
-      // max-width: 460px;
-
-      width: 20vw;
-      padding: 0 8vw 0 0;
-      margin-right: 4vw;
-      flex: 0 0 auto;
+      width: 20%;
+      max-width: 460px;
+      @include mediaQueries.desktop {
+        width: 100%;
+      }
+      @include mediaQueries.maxWidthMobile {
+        margin: 0;
+      }
       .portfolio-app-title-image_wrapper {
         width: 229px;
+        @include mediaQueries.maxWidthMobile {
+          width: 145px;
+        }
+        .portfolio-app-title-image_title {
+          top: 92px;
+          left: 130px;
+          @include mediaQueries.minWidthBigDesktops {
+            left: 154px;
+          }
+          @include mediaQueries.desktop {
+            left: 151px;
+          }
+          @include mediaQueries.maxWidthMobile {
+            top: 54px;
+            left: 97px;
+          }
+        }
       }
     }
-
-    // Carousel
     .portfolio-carousel-wrapper {
-      /* width: 74%;
+      width: 74%;
       height: 100%;
       margin: 60px 0;
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
-      align-items: center; */
-      
-      height: 100vh;
-      width: 64vw;
-      border: 1px solid red;
-      display: flex;
-      flex-wrap: nowrap;
-      flex-direction: row;
-      justify-content: flex-start;
-      overflow: hidden;
-      padding: 0;
-      //margin: 120px 0;
+      align-items: center;
       @include mediaQueries.desktop {
         width: 100%;
       }
       @include mediaQueries.maxWidthMobile {
-        margin: 120px 0;
-        height: auto;
+        margin: 50px 0;
       }
       @include mediaQueries.minWidthBigDesktops {
         width: 72%;
       }
       .carousel-item {
         min-height: 450px;
+        height: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: nowrap;
         align-items: flex-start;
-        
+        margin-bottom: 60px;
         @include mediaQueries.maxWidthMobile {
-          //margin-bottom: 50px;
+          margin-bottom: 50px;
         }
-        .portfolio-carousel-card_wrapper+.portfolio-carousel-card_wrapper {
-          margin-left: 2.5vw;
-          @include mediaQueries.desktop {
-            margin-left: 1.875rem;
-          }
-        } /**/
         .portfolio-carousel-card_wrapper {
-          //max-height: 750px;
+          max-height: 750px;
           //width: 32vw;
-
-          width: 30vw;
-          
-          border: 1px solid green;
           @include mediaQueries.desktop {
-            width: 62vw; // mudar para 48
+            width: 90%;
           }
           @include mediaQueries.minWidthBigDesktops {
             max-height: 100%;
           }
           @include mediaQueries.maxWidthMobile {
             //width: 45vw; use if you see buggin again -.-
-            //width: 100%;
+            width: 100%;
           }
           .portfolio-card-image_wrapper {
             .card {
@@ -134,20 +136,17 @@
             }
           }
           .portfolio-card-description_wrapper {
-            margin: 22px 0;
+            margin: 45px 0;
             min-height: 210px;
             @include mediaQueries.maxWidthMobile {
               margin: 45px 0 25px 0;
             }
             @include mediaQueries.minWidthdesktop {
               min-height: 255px;
-              // TODO mudar a min-height para 224px
             }
             .portfolio-card-description_content {
               .portfolio-card-description_content-text {
                 line-height: 35px;
-                // TODO mudar a font para 18/17
-                // Diminuir a line-height para 30
                 @include mediaQueries.minWidthBigDesktops {
                   line-height: 42px;
                   font-size: 27px;
@@ -173,6 +172,18 @@
               }
             }
           }
+        }
+      }
+      .dots-wrapper {
+        position: absolute;
+        top: 335px;
+        @include mediaQueries.minWidthBigDesktops {
+          // Consider uncommenting if needed: display: none;
+          top: 421px;
+          //left: 29vw;
+        }
+        @include mediaQueries.maxWidthMobile {
+          top: 228px;
         }
       }
     }

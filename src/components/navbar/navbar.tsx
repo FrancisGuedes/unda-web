@@ -100,11 +100,11 @@ const Navbar: NextPage<INavbarProps> = ({
       else if (startIndex === endIndex - 1) {
         if (
           Math.abs(
-            sectionPositionArray[startIndex].headerRef.current.offsetTop -
+            sectionPositionArray[startIndex].headerRef.current?.offsetTop -
               currentPosition,
           ) <
           Math.abs(
-            sectionPositionArray[endIndex].headerRef.current.offsetTop -
+            sectionPositionArray[endIndex].headerRef.current?.offsetTop -
               currentPosition,
           )
         )
@@ -113,11 +113,11 @@ const Navbar: NextPage<INavbarProps> = ({
       } else {
         const nextNearest = ~~((startIndex + endIndex) / 2);
         const a = Math.abs(
-          sectionPositionArray[nextNearest].headerRef.current.offsetTop -
+          sectionPositionArray[nextNearest].headerRef.current?.offsetTop -
             currentPosition
         );
         const b = Math.abs(
-          sectionPositionArray[nextNearest + 1].headerRef.current.offsetTop -
+          sectionPositionArray[nextNearest + 1].headerRef.current?.offsetTop -
             currentPosition
         );
         if (a < b) {

@@ -1,15 +1,15 @@
-import { IPortfolioSectionFields } from '../../../@types/generated/contentful';
-import AppTitleImage from '../../components/app-title-image/appTitleImage';
-import { PortfolioModule } from '../../lib/interfaces/contentful/iportfolio';
-import { concatHttpsAndUrlFromContentful } from '../../utils/utility';
-
-import { useKeenSlider } from 'keen-slider/react';
-
-import "keen-slider/keen-slider.min.css";
-import './portfolio.module.scss';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState} from "react";
+import { IPortfolioSectionFields } from "../../../@types/generated/contentful";
+import { PortfolioModule } from "../../lib/interfaces/contentful/iportfolio";
+import { concatHttpsAndUrlFromContentful } from "../../utils/utility";
+import AppTitleImage from "../../components/app-title-image/appTitleImage";
 import AppParagraph from '../../components/app-paragraph/appParagraph';
-import CarouselDots from '../../components/carousel/dots/carouselDots';
+
+
+import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
+import {gsap} from "gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface portfolioSectionProps {
   portfolioSectionProps: IPortfolioSectionFields[];
@@ -23,38 +23,14 @@ const Portfolio = ({
   const [localSlide, setLocalSlide] = useState<any>();
   const [imageContentful, setImageContentful] = useState<string[][]>([]);
 
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const [loaded, setLoaded] = useState<boolean>(false);
+  const [currentCard, setCurrentCard] = useState<number>(0);
+  const [isScrollHorizontalActive, setIsScrollHorizontalActive] = useState<boolean>(false); 
+  const [slides, setSlides] = useState<number[]>([]); 
 
-  const handleSlideChange = (slide: number) => {
-    setCurrentSlide(slide);
-  };
-
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
-    {
-      spacing: 20,
-      slidesPerView: 1,
-      breakpoints: {
-        '(min-width: 667px)': {
-          slidesPerView: 1.5,
-          spacing: 30
-        },
-        '(min-width: 970px)': {
-          slidesPerView: 2,
-          spacing: 40
-        },
-        '(min-width: 1800px)': {
-          slidesPerView: 2,
-          spacing: 50
-        },
-      },
-      slideChanged: (s) => handleSlideChange(s.details().relativeSlide),
-      created(slider) {
-        setLocalSlide({...slider})
-        setLoaded(true)
-      },
-    } 
-  );
+  // Refs for horizontal carousel
+  const portfolioContainerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardListContainerRef = useRef<HTMLDivElement | null>(null);
 
   const portfolioData: PortfolioModule.IPortfolio = new Map(Object.entries(portfolioSectionProps))
   .values()
@@ -73,19 +49,82 @@ const Portfolio = ({
     });
     setImageContentful(normalImageUrl);
   };
-  
+
   useEffect(() => {
     getCardImageFromContentful();
-  }, []);
+  }, [])
+
+  // Horizontal scroll functionality
+  const createCardsRefs = (panel: HTMLDivElement | null, index: number) => {
+    if (cardsRef.current && panel != null) {
+      cardsRef.current[index] = panel;
+    }
+  };
+
+  useLayoutEffect(() => {
+    /* let ctx = gsap.context(() => {
+      // Horizontal Scroll carousel
+      gsap.to(cardsRef!.current, {
+        xPercent: -100 * (cardsRef.current.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: portfolioContainerRef.current,
+          pin: true,
+          scrub: 1,
+          start: "top 10%", // media queries -25
+          end: () => "+=" + portfolioContainerRef.current?.offsetWidth,
+          markers: true,
+          id:"to",
+        }
+      });
+    }, portfolioContainerRef); 
+    return () => ctx.revert();*/
+
+    let matchMedia = gsap.matchMedia(portfolioContainerRef),
+    breakPointDesktop = 971, 
+    breakPointMobile = 667;
+
+    matchMedia.add(
+      {
+        // set up any number of arbitrarily-named conditions. The function below will be called when ANY of them match.
+        isDesktop: `(min-width: ${breakPointDesktop}px)`,
+        isTablet: `(max-width: ${breakPointDesktop - 1}px)`,
+        isMobile: `(max-width: ${breakPointMobile}px)`,
+      },
+      (context) => {
+        // context.conditions has a boolean property for each condition defined above indicating if it's matched or not.
+        let { isDesktop, isTablet, isMobile } = context.conditions as gsap.Conditions;
+
+        gsap.to(cardsRef!.current, {
+          xPercent: -100 * (cardsRef.current.length - 1),
+          ease: "none",
+          scrollTrigger: {
+            trigger: portfolioContainerRef.current,
+            pin: true,
+            scrub: 1,
+            start: `top ${isDesktop ? '10%' : isMobile ? '-35%' : '-30%'}`,
+            end: () => "+=" + portfolioContainerRef.current?.offsetWidth,
+            markers: true,
+            id: `${isDesktop ? 'desktop' : isMobile ? 'mobile' : 'tablet'}`,
+          }
+        });
+
+        return () => {
+          // optionally return a cleanup function that will be called when none of the conditions match anymore (after having matched)
+          // it'll automatically call context.revert() - do NOT do that here . Only put custom cleanup code here.
+        };
+      }, 
+    );
+    return () => matchMedia.revert();
+  });
 
   const portfolioTitle: string = portfolioData['title'];
   const portfolioTitleImage: PortfolioModule.IFile = portfolioData['titleImage']['fields']['media']['fields']['file'];
   // 1366 and 768 -> width and height were divided by 7.5
   const portfolioTitleImageUrl: string = concatHttpsAndUrlFromContentful(portfolioTitleImage.url);
 
-  //TODO Make carousel into small components
-  // CAROUSEL
-  const portfoliorCarouselData = portfolioData['cardMain'].map((card: PortfolioModule.ICardMain, index: number) => {
+// CAROUSEL CONTENT
+  const portfolioCarouselData = portfolioData['cardMain'].map((card: PortfolioModule.ICardMain, index: number) => {
     const cardData = card['fields'];
 
     // CARD IMAGE
@@ -151,14 +190,12 @@ const Portfolio = ({
       );
     });
 
-    // Set loaded to true after slider has initialized
-    if (sliderRef && !loaded) {
-      setLoaded(true);
-    }
-
     return (
       <> 
-        <div className="keen-slider__slide portfolio-carousel-card_wrapper" key={index} >
+        <article 
+          className="portfolio-carousel-card_wrapper"
+          ref={(e) => createCardsRefs(e as HTMLDivElement, index)} 
+          key={index} >
           <div className="portfolio-card-image_wrapper">
             {cardImage}
           </div>
@@ -168,17 +205,17 @@ const Portfolio = ({
           <div className="portfolio-card-footer_wrapper">
             {cardFooter}
           </div>
-          
-        </div>
+        </article>
       </>
     );
   });
-
+  
   return (
-    <>
-      <section id="portfolio" className='portfolio-wrapper' ref={portfolioRef}>
-        <div className="portfolio-content">
-          <div className="portfolio-title-wrapper">
+    <>   
+      <section id="portfolio" className='portfolio_wrapper' ref={portfolioRef} >
+      
+        <section className="portfolio_content" ref={portfolioContainerRef} id="portfolio-container" >
+          <article className="portfolio_title-wrapper">
               <AppTitleImage
                 src={portfolioTitleImageUrl} 
                 imageWidth={228} 
@@ -187,20 +224,25 @@ const Portfolio = ({
                 classNameWrapper="portfolio-app-title-image_wrapper"
                 classNameTitle='portfolio-app-title-image_title'
               />                
-          </div>
-          <div className="keen-slider portfolio-carousel-wrapper" ref={sliderRef}>
+          </article>
+
+          <section 
+            className="portfolio-carousel-wrapper" 
+            ref={cardListContainerRef}
+          >
             <div className="carousel-item" >
-              {portfoliorCarouselData}
+              {portfolioCarouselData}
             </div>
-            <div className="dots-wrapper">
-              <CarouselDots 
-                loaded={loaded} 
-                instanceRef={instanceRef} 
-                currentSlide={currentSlide}        
-              />
-            </div>
-          </div>
-        </div>
+
+            {/* <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 0)}>card 1</article>
+            <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 1)}>card 2</article>
+            <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 2)}>card 3</article>
+            <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 3)}>card 4</article>
+            <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 4)}>card 5</article>
+            <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 5)}>card 6</article>
+            <article className={`portfolio_card`} ref={(e) => createCardsRefs(e as HTMLDivElement, 6)}>card 7</article> */}
+          </section>
+        </section>
       </section>
     </>
   );

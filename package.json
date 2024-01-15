@@ -14,11 +14,14 @@
   "dependencies": {
     "@vercel/analytics": "^0.1.5",
     "contentful": "^9.2.5",
+    "gsap": "^3.12.2",
     "keen-slider": "^5.5.1",
     "next": "^12.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.55.0"
+    "react-scrollmagic": "^2.3.0",
+    "sass": "^1.55.0",
+    "scrollmagic": "^2.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

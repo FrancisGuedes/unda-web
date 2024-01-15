@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useEffect, useState } from 'react';
 import { LabelSocialMedia } from "../components/social-media/socialMedia";
 import { HTTPS } from "../lib/endpoints";
 
@@ -96,3 +96,6 @@ export const useWindowWidth = () => {
 
   return windowWidth;
 }
+
+export const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;

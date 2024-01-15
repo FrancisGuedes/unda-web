@@ -58,7 +58,7 @@
         margin: 30px 0;
         width: 55vw;
         @include mediaQueries.desktop {
-          width: 705px;
+          width: 705px; //FIXME it's ruin the tablet layout
         };
         @include mediaQueries.maxWidthMobile {
           width: 100%;

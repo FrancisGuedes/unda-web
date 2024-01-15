@@ -1,6 +1,16 @@
 import type { NextPage, GetStaticProps } from 'next';
 import { RefObject, useCallback, useRef, useState } from 'react';
-import { IAboutSectionFields, ILayoutFields, IContactSectionFields, IHeroSectionFields, INavbarFields, IPortfolioSectionFields, ISolutionsFields, ISocialMediaFields, IFooterFields } from '../../@types/generated/contentful';
+import {
+  IAboutSectionFields,
+  ILayoutFields,
+  IContactSectionFields,
+  IHeroSectionFields,
+  INavbarFields,
+  IPortfolioSectionFields,
+  ISolutionsFields,
+  ISocialMediaFields,
+  IFooterFields,
+} from '../../@types/generated/contentful';
 
 import ContentService from '../utils/contentful/content-service';
 import { MainContentTypeId } from '../utils/contentful/content-type-id';
@@ -20,19 +30,19 @@ import Footer from '../templates/footer/footer';
 
 interface IIndexProps {
   navbarSectionProps: INavbarFields[];
-  layoutSectionProps: ILayoutFields[],
-  heroSectionProps: IHeroSectionFields[],
-  aboutSectionProps: IAboutSectionFields[],
-  solutionsSectionProps: ISolutionsFields[],
-  portfolioSectionProps: IPortfolioSectionFields[],
-  contactSectionProps: IContactSectionFields[],
-  socialMediaSectionProps: ISocialMediaFields[],
+  layoutSectionProps: ILayoutFields[];
+  heroSectionProps: IHeroSectionFields[];
+  aboutSectionProps: IAboutSectionFields[];
+  solutionsSectionProps: ISolutionsFields[];
+  portfolioSectionProps: IPortfolioSectionFields[];
+  contactSectionProps: IContactSectionFields[];
+  socialMediaSectionProps: ISocialMediaFields[];
   footerSectionProps: IFooterFields[];
 }
 
 export type NavSectionRefs = {
   headerRef: RefObject<number>;
-}
+};
 
 const Index: NextPage<IIndexProps> = ({
   navbarSectionProps,
@@ -43,7 +53,7 @@ const Index: NextPage<IIndexProps> = ({
   portfolioSectionProps,
   contactSectionProps,
   socialMediaSectionProps,
-  footerSectionProps
+  footerSectionProps,
 }: IIndexProps) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -61,19 +71,23 @@ const Index: NextPage<IIndexProps> = ({
     { headerRef: contactRef },
   ];
 
-  const handleModal = useCallback(() => setModalOpen((modalOpen: boolean) => !modalOpen), []);
+  const handleModal = useCallback(
+    () => setModalOpen((modalOpen: boolean) => !modalOpen),
+    [],
+  );
 
   const socialMediaData: SocialMediaModule.ISocialMediaContent[] = new Map(
-    Object.entries(socialMediaSectionProps))
+    Object.entries(socialMediaSectionProps),
+  )
     .values()
     .next().value['socialMediaContent'];
-  
 
   const layoutFile: LayoutModule.IFile = new Map(
-    Object.entries(layoutSectionProps))
+    Object.entries(layoutSectionProps),
+  )
     .values()
     .next().value['image'][0]['fields']['media']['fields']['file'];
-  
+
   return (
     <>
       <Navbar
@@ -81,91 +95,98 @@ const Index: NextPage<IIndexProps> = ({
         socialMediaData={socialMediaData}
         handleModal={handleModal}
         isModalActive={false}
-        navSectionRefs={navSectionRefs} />
-      <BackgroundImage
-        layoutData={layoutFile}
-      >
-        <Home
-          homeSectionProps={heroSectionProps}
-          homeRef={heroRef} 
-        />
+        navSectionRefs={navSectionRefs}
+      />
+      <BackgroundImage layoutData={layoutFile}>
+        <Home homeSectionProps={heroSectionProps} homeRef={heroRef} />
       </BackgroundImage>
-      <Layout
-      >
-        <About
-          aboutSectionProps={aboutSectionProps}
-          aboutRef={aboutRef} 
-        />
-        <Solutions 
+      <Layout>
+        <About aboutSectionProps={aboutSectionProps} aboutRef={aboutRef} />
+        <Solutions
           solutionsSectionProps={solutionsSectionProps}
           solutionsRef={solutionsRef}
         />
-        <Portfolio 
+        <Portfolio
           portfolioSectionProps={portfolioSectionProps}
           portfolioRef={portfolioRef}
         />
       </Layout>
       <BackgroundImage
         layoutData={layoutFile}
-        classNameBg='contact-background-image'
-        classNameBgContent='contact-background-content-image'>
-          <Contact
-            contactSectionProps={contactSectionProps}
-            contactRef={contactRef}
-          />
+        classNameBg="contact-background-image"
+        classNameBgContent="contact-background-content-image"
+      >
+        <Contact
+          contactSectionProps={contactSectionProps}
+          contactRef={contactRef}
+        />
       </BackgroundImage>
-      <SocialMediaView 
-        socialMediaData={socialMediaData} 
-      />
-      <Footer 
-        footerSectionProps={footerSectionProps} 
-      />
+      <SocialMediaView socialMediaData={socialMediaData} />
+      <Footer footerSectionProps={footerSectionProps} />
     </>
-  )
-}
+  );
+};
 
 export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.info("START fetching PROPS");
+  console.info('START fetching PROPS');
 
   const navbarSectionProps = (
-    await ContentService.instance.getEntriesByType<INavbarFields>(MainContentTypeId.NAVBAR)
+    await ContentService.instance.getEntriesByType<INavbarFields>(
+      MainContentTypeId.NAVBAR,
+    )
   ).map((entry) => entry.fields);
 
   const layoutSectionProps = (
-    await ContentService.instance.getEntriesByType<ILayoutFields>(MainContentTypeId.LAYOUT)
+    await ContentService.instance.getEntriesByType<ILayoutFields>(
+      MainContentTypeId.LAYOUT,
+    )
   ).map((entry) => entry.fields);
 
   const heroSectionProps = (
-    await ContentService.instance.getEntriesByType<IHeroSectionFields>(MainContentTypeId.HERO)
+    await ContentService.instance.getEntriesByType<IHeroSectionFields>(
+      MainContentTypeId.HERO,
+    )
   ).map((entry) => entry.fields);
 
   const aboutSectionProps = (
-    await ContentService.instance.getEntriesByType<IAboutSectionFields>(MainContentTypeId.ABOUT)
+    await ContentService.instance.getEntriesByType<IAboutSectionFields>(
+      MainContentTypeId.ABOUT,
+    )
   ).map((entry) => entry.fields);
 
   const solutionsSectionProps = (
-    await ContentService.instance.getEntriesByType<ISolutionsFields>(MainContentTypeId.SOLUTIONS)
+    await ContentService.instance.getEntriesByType<ISolutionsFields>(
+      MainContentTypeId.SOLUTIONS,
+    )
   ).map((entry) => entry.fields);
 
   const portfolioSectionProps = (
-    await ContentService.instance.getEntriesByType<IPortfolioSectionFields>(MainContentTypeId.PORTFOLIO)
+    await ContentService.instance.getEntriesByType<IPortfolioSectionFields>(
+      MainContentTypeId.PORTFOLIO,
+    )
   ).map((entry) => entry.fields);
 
   const contactSectionProps = (
-    await ContentService.instance.getEntriesByType<IContactSectionFields>(MainContentTypeId.CONTACT)
+    await ContentService.instance.getEntriesByType<IContactSectionFields>(
+      MainContentTypeId.CONTACT,
+    )
   ).map((entry) => entry.fields);
 
   const socialMediaSectionProps = (
-    await ContentService.instance.getEntriesByType<ISocialMediaFields>(MainContentTypeId.SOCIAL_MEDIA)
+    await ContentService.instance.getEntriesByType<ISocialMediaFields>(
+      MainContentTypeId.SOCIAL_MEDIA,
+    )
   ).map((entry) => entry.fields);
 
   const footerSectionProps = (
-    await ContentService.instance.getEntriesByType<IFooterFields>(MainContentTypeId.FOOTER)
+    await ContentService.instance.getEntriesByType<IFooterFields>(
+      MainContentTypeId.FOOTER,
+    )
   ).map((entry) => entry.fields);
 
-  console.info("END fetching PROPS");
+  console.info('END fetching PROPS');
   return {
     props: {
       navbarSectionProps,
@@ -176,7 +197,7 @@ export const getStaticProps: GetStaticProps = async () => {
       portfolioSectionProps,
       contactSectionProps,
       socialMediaSectionProps,
-      footerSectionProps
+      footerSectionProps,
     },
     revalidate: 1,
   };

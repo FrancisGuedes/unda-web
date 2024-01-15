@@ -26,6 +26,7 @@ class MyDocument extends Document {
           name={MyDocument.labels.descriptionName} 
           content={MyDocument.labels.description} 
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <meta 
           name={MyDocument.labels.nameRobots} 
           content={MyDocument.labels.contentRobots} 
